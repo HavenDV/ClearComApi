@@ -3,17 +3,24 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Library.IntegrationTests
+namespace ClearComApi.Tests
 {
     [TestClass]
     public class Tests
     {
         [TestMethod]
-        public async Task ConnectToChatNowShTest()
+        public async Task GetDevicesCapabilitiesTest()
         {
-            using var source = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+            using var source = new CancellationTokenSource(TimeSpan.FromMinutes(1));
 
-            await Task.Delay(TimeSpan.FromSeconds(5), source.Token);
+            using var client = ApiClient.New("http://clearcomtest.net/", "admin", "4Mercury@62");
+
+            var capabilities = await client.GetDevicesCapabilitiesAsync(source.Token);
+
+            foreach (var capability in capabilities)
+            {
+                Console.WriteLine(capability);
+            }
         }
     }
 }
