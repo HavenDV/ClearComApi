@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Reboot",
+  "type": "object",
+  "properties": {
+    "all": {
+      "type":"boolean",
+      "description": "HelixNet only. Reboot all attached endpoints and ports."
+    },
+    "delay": {
+      "type":"integer",
+      "description": "HelixNet only. Delay in seconds before rebooting, immediate reboot if not specified."
+    }
+  },
+  "additionalProperties": false
+}

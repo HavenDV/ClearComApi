@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Setup Network",
+  "type": "object",
+  "required": [
+    "network"
+  ],
+  "properties": {
+    "network": {
+      "type": "object",
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "dhcp",
+            "static"
+          ],
+          "description": "Configures the external network interfaces in static IPv4 or DHCP."
+        },
+        "staticIP": {
+          "anyOf": [
+            {
+              "enum": [
+                ""
+              ]
+            },
+            {
+              "type": "string",
+              "format": "ipv4"
+            }
+          ],
+          "description": "IPv4 address for the external interface when statically configured."
+        },
+        "netmask": {
+          "anyOf": [
+            {
+              "enum": [
+                ""
+              ]
+            },
+            {
+              "type": "string",
+              "format": "ipv4"
+            }
+          ],
+          "description": "IPv4 network mask for the external interface when statically configured."
+        },
+        "gateway": {
+          "anyOf": [
+            {
+              "enum": [
+                ""
+              ]
+            },
+            {
+              "type": "string",
+              "format": "ipv4"
+            }
+          ],
+          "description": "Gateway IPv4 address for routing outside the subnet when statically configured."
+        },
+        "dns1": {
+          "anyOf": [
+            {
+              "enum": [
+                ""
+              ]
+            },
+            {
+              "type": "string",
+              "format": "ipv4"
+            }
+          ],
+          "descrption": "Primary DNS server address IPv4 address when statically configured."
+        },
+        "dns2": {
+          "anyOf": [
+            {
+              "enum": [
+                ""
+              ]
+            },
+            {
+              "type": "string",
+              "format": "ipv4"
+            }
+          ],
+          "descrption": "Secondary DNS server address IPv4 address when statically configured."
+        },
+        "extip": {
+          "anyOf": [
+            {
+              "enum": [
+                ""
+              ]
+            },
+            {
+              "type": "string",
+              "format": "ipv4"
+            }
+          ],
+          "description": "IPv4 address to use to reach this device from outside a firewall."
+        },
+        "extport": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65535,
+          "description": "Port for audio and control used to reach this device from outside a firewall. If set to 0, the default port 655 will be used."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

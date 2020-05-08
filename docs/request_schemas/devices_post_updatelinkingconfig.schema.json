@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Update Linking Configuration",
+  "type": "object",
+  "required": [
+    "mode"
+  ],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": [
+        "disabled",
+        "linkMaster",
+        "linkMember"
+      ],
+      "description": "disabled: Will not advertise itself as Link-Master or accept any connection. linkMaster: Will advertise itself as a Link-Master and accept Link-Members. linkMember: Will try to join the link group through the Link-Master."
+    },
+    "masterIp": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "ipv4"
+        },
+        {
+          "type": "string",
+          "pattern": "^[-A-Za-z0-9#&()_=+/*!@: ]+$",
+          "description": "HelixNet only. HMS-4X hostname."
+        }
+      ],
+      "description": "IP address or name of the master to connect. Required when configured as Link-Member."
+    },
+    "masterMgmtPort": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535,
+      "description": "HTTP port to use to connect to the master."
+    },
+    "slotId": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 6,
+      "description": "The slot where the device joins the link-group. This will match the new device's device_id field."
+    },
+    "deleteDB": {
+      "type":"boolean",
+      "description": "Deprecated"
+    }
+  },
+  "additionalProperties": false
+}

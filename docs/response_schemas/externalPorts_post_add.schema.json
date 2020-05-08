@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Add",
+  "type": "object",
+  "required": [
+    "settings"
+  ],
+  "definitions": {
+    "IVC32PortSettings": {
+      "type": "object",
+      "required": [
+        "login"
+      ],
+      "properties": {
+        "login": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10,
+          "description": "IVC32 port login name."
+        },
+        "password": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "IVC32 port password."
+        },
+        "assignedDeviceId": {
+          "type": "integer",
+          "description": "Device id to which this external port is assigned or 0 if unassigned."
+        }
+      },
+      "additionalProperties": false
+    },
+    "SIPLineSettings": {
+      "type": "object",
+      "required": [
+        "login"
+      ],
+      "properties": {
+        "login": {
+          "type": "string",
+          "minLength": 1,
+          "description": "SIP user as part of the SIP URI."
+        },
+        "password": {
+          "type": "string",
+          "description": "SIP password to register the user."
+        },
+        "assignedDeviceId": {
+          "type": "integer",
+          "description": "Device id to which this external port is assigned or 0 if unassigned."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "label": {
+      "type": "string",
+      "description": "External port label for display purpose."
+    },
+    "settings": {
+      "anyOf": [
+        { "$ref": "#/definitions/IVC32PortSettings" },
+        { "$ref": "#/definitions/SIPLineSettings" }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

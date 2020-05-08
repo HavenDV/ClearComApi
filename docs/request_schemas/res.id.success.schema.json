@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Success response",
+  "type": "object",
+  "required": [
+    "ok",
+    "res",
+    "id"
+  ],
+  "properties": {
+    "ok": {
+      "type": "boolean",
+      "enum": [ true ]
+    },
+    "id": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "res": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

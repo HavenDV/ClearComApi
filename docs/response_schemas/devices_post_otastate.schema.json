@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "OTA State",
+  "type": "object",
+  "required": [
+    "OTAState"
+  ],
+  "properties": {
+    "OTAState": {
+      "type": "integer",
+      "enum": [ 1 ],
+      "description": "Set this field to 1 to start the OTA."
+    }
+  },
+  "additionalProperties": false
+}

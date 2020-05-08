@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Call success",
+  "type": "object",
+  "required": [
+    "ok",
+    "id",
+    "res"
+  ],
+  "properties": {
+    "ok": {
+      "type": "boolean",
+      "enum": [ true ]
+    },
+    "id": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "res": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

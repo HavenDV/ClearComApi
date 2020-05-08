@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Add",
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "partyline",
+        "group",
+        "direct"
+      ]
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Connection label for display purpose."
+    }
+  },
+  "additionalProperties": false
+}

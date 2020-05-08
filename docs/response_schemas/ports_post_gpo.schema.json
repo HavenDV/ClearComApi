@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "GPO Activate",
+  "type": "object",
+  "required": [
+    "enabled"
+  ],
+  "properties": {
+    "enabled": {
+      "type": "boolean"
+    },
+    "timeout": {
+      "type": "integer"
+    }
+  },
+  "additionalProperties": false
+}

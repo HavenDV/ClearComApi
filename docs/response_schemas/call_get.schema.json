@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Success response",
+  "type": "object",
+  "required": [
+    "id",
+    "deviceId",
+    "audioInterfaceId",
+    "portId",
+    "liveStatus",
+    "uri",
+    "res"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "The call id is only unique within the device."
+    },
+    "deviceId": {
+      "type": "integer",
+      "description": "The parent device id."
+    },
+    "audioInterfaceId": {
+      "type": "integer",
+      "description": "The parent audio interface id."
+    },
+    "portId": {
+      "type": "integer",
+      "description": "The parent port id (SIP Line)."
+    },
+    "liveStatus": {
+      "type": "object",
+      "description": "Call Live Status Object.",
+      "required": [
+        "callerId",
+        "sipCallStatusCode",
+        "vox"
+      ],
+      "properties": {
+        "callerId": {
+          "type": "string",
+          "description": "Caller ID"
+        },
+        "sipCallStatusCode": {
+          "type": "number",
+          "description": "Current status of the call"
+        },
+        "vox": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "boolean",
+              "description": "If audio is currently detected"
+            }
+          },
+          "additionalProperties": false
+        },
+        "codec": {
+          "type": "string",
+          "enum": [ "PCMU", "PCMA", "G722" ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "uri": {
+      "type": "string",
+      "description": "URI / Number"
+    },
+    "res": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

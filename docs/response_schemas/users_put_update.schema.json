@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Update Password",
+  "type": "object",
+  "required": [
+    "oldPassword",
+    "newPassword"
+  ],
+
+  "properties": {
+    "oldPassword":{
+      "type": "string",
+      "description": "Old password."
+    },
+    "newPassword": {
+      "type": "string",
+      "description": "New password."
+    }
+  },
+  "additionalProperties": false
+}

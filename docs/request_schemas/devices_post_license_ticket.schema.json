@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Activate licenses in ticket",
+  "type": "object",
+  "required": [
+    "features"
+  ],
+  "properties": {
+    "features": {
+      "type": "array",
+      "description": "The list of features to activate with this ticket.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "qty"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The available feature's unique name.",
+            "enum": [ "SIP8-LQ", "AGENT-IC-LQ", "AGENT-IC8-LQ", "SIP8-LQ-DEMO", "AGENT-IC-LQ-DEMO", "AGENT-IC8-LQ-DEMO" ]
+          },
+          "qty": {
+            "type": "number",
+            "minimum": 1,
+            "description": "The number of available licenses for this feature."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

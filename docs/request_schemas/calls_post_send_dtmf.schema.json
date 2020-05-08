@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Send DTMF",
+  "type": "object",
+  "required": [
+    "dtmf"
+  ],
+  "properties": {
+    "dtmf": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

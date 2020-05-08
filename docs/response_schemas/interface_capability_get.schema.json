@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Interface Capabilities",
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [ "FSII-2W", "FSII-4W",
+                "HLI-2W", "HLI-4W",
+                "LQ-2W", "LQ-4W", "LQ-4WG", "LQ-IVC" ]
+    },
+    "fec": {
+      "type": "boolean"
+    },
+    "networkQuality": {
+      "type": "boolean"
+    },
+    "vox": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "value",
+          "label"
+        ],
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "adaptive",
+              "fixed",
+              "disabled"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "enum": [
+              "Adaptive Threshold",
+              "Fixed Threshold",
+              "Disabled"
+            ]
+          },
+          "default": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "power": {
+      "type": "boolean"
+    },
+    "mode": {
+      "type": "boolean"
+    },
+    "termination": {
+      "type": "boolean"
+    },
+    "callSignal": {
+      "type": "boolean"
+    },
+    "portFunction": {
+      "type": "boolean"
+    },
+    "baudRate": {
+      "type": "boolean"
+    },
+    "gpio":  {
+      "type": "boolean"
+    },
+    "twoWayRadio": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

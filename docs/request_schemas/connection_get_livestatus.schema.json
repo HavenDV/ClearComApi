@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Add",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "participants"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "partyline",
+        "group",
+        "direct"
+      ]
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [ "waiting", "connected", "disconnecting" ]
+          },
+          "joinState": {
+            "type": "string",
+            "enum": [  "Listen", "Talk", "Talk-Listen" ]
+          },
+          "device_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "label": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [ "hms", "hrm", "hkb", "hbp", "2w", "4w", "pgm", "sa" ]
+          },
+          "res": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "label": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

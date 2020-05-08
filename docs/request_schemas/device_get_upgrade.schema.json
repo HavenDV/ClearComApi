@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Upgrade progress",
+  "type": "object",
+  "properties": {
+    "percentComplete": {
+      "description": "Upgrade stage progress in percentage.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "stage": {
+      "description": "Current upgrade stage name.",
+      "type": "string"
+    },
+    "reboot": {
+      "description": "true when the device is about to reboot.",
+      "type": "boolean"
+    },
+    "done": {
+      "description": "true when the upgrade is done.",
+      "type": "boolean"
+    },
+    "ok": {
+     "type": "boolean"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stage": {
+            "type": "string",
+            "description": "The current upgrade stage for this dependency."
+          },
+          "deviceType_name": {
+            "type": "string",
+            "enum": [ "HLI-2W2", "HLI-4W2", "HMS-4X" ]
+          },
+          "resources": {
+            "type": "string",
+            "pattern": "^/api/1/devices/endpoints/[0-9]+$"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "percentComplete",
+    "stage"
+  ]
+}

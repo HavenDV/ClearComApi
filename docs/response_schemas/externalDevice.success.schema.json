@@ -1,0 +1,242 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Success response",
+  "type": "object",
+  "required": [
+    "ok",
+    "newDevice"
+  ],
+  "definitions": {
+    "IVCDevice": {
+      "type": "object",
+      "required": [
+        "type",
+        "id",
+        "settings",
+        "res"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "The external device id in the link group."
+        },
+        "label": {
+          "type": "string",
+          "minLength": 0,
+          "description": "The device identification label."
+        },
+        "desc": {
+          "type": "string",
+          "description": "The external device description."
+        },
+        "type": {
+          "type": "string",
+          "enum": [ "IVC" ]
+        },
+
+        "settings": {
+          "type": "object",
+          "properties": {
+            "ip": {
+              "type": "string"
+            },
+            "port": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "ip",
+            "port"
+          ],
+          "additionalProperties": false
+        },
+        "ports": {
+          "type": "array",
+          "description": "Ports defined on the external device.",
+          "items": {
+            "required": [
+              "id",
+              "type",
+              "settings"
+            ],
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "externalDeviceId": {
+                "type": "integer"
+              },
+              "type": {
+                "enum": [ "IVC" ]
+              },
+              "label": {
+                "type": "string",
+                "minLength": 0,
+                "description": "The external port identification label."
+              },
+              "desc": {
+                "type": "string",
+                "description": "The external port description."
+              },
+              "settings": {
+                "type": "object",
+                "properties": {
+                  "login": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "assignedDeviceId": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "login",
+                  "password"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "res": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SIPServer": {
+      "type": "object",
+      "required": [
+        "type",
+        "id",
+        "settings",
+        "res"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "The external device id in the link group."
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The SIP server identification label."
+        },
+        "desc": {
+          "type": "string",
+          "description": "The external device description."
+        },
+        "type": {
+          "type": "string",
+          "enum": [ "SIP" ]
+        },
+
+        "settings": {
+          "type": "object",
+          "properties": {
+            "ip": {
+              "type": "string",
+              "description": "IP or hostname to reach the registrar."
+            },
+            "port": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "domain": {
+              "type": "string",
+              "description": "Default domain to be used for SIP users."
+            },
+            "protocol": {
+              "type": "string",
+              "enum": [
+                "udp",
+                "tcp",
+                "tls"
+              ],
+              "description": "Communication protocol to be used with the registrar."
+            }
+          },
+          "required": [
+            "ip",
+            "port"
+          ],
+          "additionalProperties": false
+        },
+        "ports": {
+          "type": "array",
+          "description": "Ports defined on the external device.",
+          "items": {
+            "required": [
+              "id",
+              "type",
+              "settings"
+            ],
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "externalDeviceId": {
+                "type": "integer"
+              },
+              "type": {
+                "enum": [ "SIP" ]
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The external port identification label."
+              },
+              "desc": {
+                "type": "string",
+                "description": "The external port description."
+              },
+              "settings": {
+                "type": "object",
+                "properties": {
+                  "login": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "assignedDeviceId": {
+                    "type": [ "null", "integer" ]
+                  }
+                },
+                "required": [
+                  "login",
+                  "password",
+                  "assignedDeviceId"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "res": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "ok": {
+      "type": "boolean",
+      "enum": [ true ]
+    },
+    "newDevice": {
+      "anyOf": [
+        { "$ref": "#/definitions/IVCDevice" },
+        { "$ref": "#/definitions/SIPServer" }
+      ]
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

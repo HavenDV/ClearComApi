@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "License",
+  "type": "object",
+  "required": [
+    "licensePasscode"
+  ],
+  "properties": {
+    "licensePasscode": {
+      "type":"string",
+      "pattern":"([0-9A-F]{16})?",
+      "description": "Numeric string provided by Clear-Com to unlock licensed features."
+    }
+  },
+  "additionalProperties": false
+}

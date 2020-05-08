@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Create an Agent-IC user",
+  "type": "object",
+  "required": [
+    "label",
+    "type",
+    "settings"
+  ],
+  "properties": {
+    "label": {
+      "type": "string",
+      "description": "Agent-IC user label for display purpose.",
+      "minLength": 1
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "LQ-AIC"
+      ],
+      "description": "Type identifier."
+    },
+    "settings": {
+      "type": "object",
+      "required": [
+        "login",
+        "password",
+        "assignedDeviceId",
+        "defaultRole"
+      ],
+      "properties": {
+        "login": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The username for the agent-ic account."
+        },
+        "password": {
+            "type": "string",
+            "description": "The password for the agent-ic account."
+        },
+        "assignedDeviceId": {
+            "type": ["integer"],
+            "description": "The device ID that the account is pair with (0 if unassigned)."
+        },
+        "defaultRole": {
+            "type": ["integer"],
+            "description": "The default role to assign to the device (0 if unassigned)."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Interface",
+  "type": "object",
+  "required": [
+    "audioInterface_id",
+    "audioInterface_hwIndex",
+    "device_id_Device",
+    "audioInterfaceType_longName",
+    "audioInterfaceType_shortName",
+    "audioInterfaceType",
+    "audioInterfaceType_numPorts",
+    "audioInterface_settings",
+    "audioInterface_versionHW",
+    "audioInterface_liveStatus",
+    "res"
+  ],
+  "properties": {
+    "audioInterface_hwIndex": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Audio interface hardware index for internal use."
+    },
+    "audioInterface_id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Global audio interface id."
+    },
+    "audioInterface_portCount": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of ports on this interface."
+    },
+    "device_id_Device": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Parent device id"
+    },
+    "audioInterfaceType_longName": {
+      "type": "string",
+      "enum": [
+        "2-Wire",
+        "4-Wire",
+        "4-Wire + GPIO",
+        "IVC",
+        "Station"
+      ],
+      "description": "Interface long name for display purpose."
+    },
+    "audioInterfaceType_shortName": {
+      "type": "string",
+      "enum": [
+        "2W",
+        "4W",
+        "4WG",
+        "IVC",
+        "E1"
+      ],
+      "description": "Interface short name for display purpose."
+    },
+    "audioInterfaceType": {
+      "type": "string",
+      "enum": [
+        "LQ-2W",
+        "LQ-4W",
+        "LQ-4WG",
+        "LQ-IVC",
+        "FSII-2W",
+        "FSII-4W",
+        "FSII-E1"
+      ],
+      "description": "Interface type unique code."
+    },
+    "audioInterfaceType_numPorts": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of ports configured on this interface. For virtual interfaces (e.g. IVC), it may be greater than audioInterface_portCount."
+    },
+    "audioInterfaceType_partNum": {
+      "type": "string",
+      "enum": [
+        "2W2P-001",
+        "4W2P-001",
+        "4W2P-GPIO-001",
+        "IVC-001",
+        "E1-001"
+      ],
+      "description": "Hardware part number."
+    },
+    "audioInterface_settings": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "ClearCom",
+            "RTS"
+          ],
+          "description": "2W interface mode."
+        },
+        "power": {
+          "type": "boolean",
+          "description": "Whether the 2W interface provides power or not."
+        }
+      },
+      "additionalProperties": false
+    },
+    "audioInterface_versionHW": {
+      "type": "string"
+    },
+    "audioInterface_liveStatus": {
+      "type": "object",
+      "properties": {
+        "powerSense": {
+          "type": "boolean",
+          "description": "Whether power is sensed on this interface."
+        },
+        "powerOn": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "res": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

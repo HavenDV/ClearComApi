@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Update",
+  "definitions": {
+    "LQ_FSII": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "A human readable name for the device"
+        },
+        "displayBrightness": {
+          "type": "integer",
+          "enum": [
+            20,
+            85,
+            170,
+            255
+          ],
+          "description": "The front panel display brightness (higher is brighter). LQ specific."
+        },
+        "adminPin": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "description": "PIN to unlock administration options on FSII-BP."
+        },
+        "otaPin": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "description": "PIN to register beltpacks Over-The-Air."
+        },
+        "wirelessId": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 3,
+          "description": "The systems wireless id to link beltpacks to."
+        },
+        "aaBatteryType": {
+          "type": "string",
+          "enum": [
+            "NiMH",
+            "Alkaline"
+          ],
+          "description": "Battery type inside the FSII-BP attached to this Base Station. This is used for battery level indication."
+        },
+        "roleSorting": {
+          "type": "string",
+          "enum": [
+            "Alphabetical",
+            "RoleNumber"
+          ],
+          "description": "Sorting used for role names sent to beltpacks."
+        },
+        "keysets": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "properties": {
+              "keysetIndex": {
+                "type": "integer",
+                "description": "0 based keyset index on the display."
+              },
+              "connections": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "res"
+                  ],
+                  "properties": {
+                    "res": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "description": "List of connection URIs associated to this keyset."
+              },
+              "activationState": {
+                "type": "string",
+                "enum": [
+                  "talk",
+                  "listen",
+                  "talklisten",
+                  "dualtalklisten",
+                  "forcelisten",
+                  "talkforcelisten",
+                  "forcetalkforcelisten"
+                ],
+                "description": "Available activation states for the FSII-BP keyset."
+              },
+              "isCallKey": {
+                "type": "boolean",
+                "description": "Whether this keyset can send a call signal or not."
+              },
+              "isReplyKey": {
+                "type": "boolean",
+                "description": "true to make this keyset the reply key."
+              },
+              "talkBtnMode": {
+                "type": "string",
+                "enum": [
+                  "latching",
+                  "non-latching",
+                  "disabled"
+                ],
+                "description": "Set the talk button latching behaviour."
+              }
+            },
+            "required": [
+              "keysetIndex",
+              "connections",
+              "activationState",
+              "talkBtnMode",
+              "isCallKey",
+              "isReplyKey"
+            ]
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "HMS": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "A human readable name for the device"
+        }
+      }
+    }
+  },
+  "anyOf": [
+    {
+      "$ref": "#/definitions/HMS"
+    },
+    {
+      "$ref": "#/definitions/LQ_FSII"
+    }
+  ]
+}

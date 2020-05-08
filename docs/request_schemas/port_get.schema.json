@@ -1,0 +1,410 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Add",
+  "type": "object",
+  "required": [
+    "port_hwIndex",
+    "port_id",
+    "res",
+    "device_id",
+    "port_userId",
+    "audioInterface_id_AudioInterface",
+    "audioInterfaceType_shortName",
+    "audioInterfaceType_longName",
+    "port_config_type"
+  ],
+  "properties": {
+    "port_hwIndex": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Port hardware index for internal use."
+    },
+    "port_label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Port label for display purpose."
+    },
+    "port_id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Global port id."
+    },
+    "res": {
+      "type": "string",
+      "description": "Resource URI identifier for this port."
+    },
+    "device_id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The parent device ID."
+    },
+    "port_userId": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "User id for internal use."
+    },
+    "port_connections": {
+      "type": "object",
+      "description": "Map of connections associated to this port with their state.",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "type": "object",
+          "required": [
+            "connectionId"
+          ],
+          "properties": {
+            "connectionId": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "port_settings": {
+      "type": "object",
+      "properties": {
+        "inputGain": {
+          "type": "integer",
+          "minimum": -12,
+          "maximum": 12,
+          "description": "Input gain in dB [-12, -9, -6, -3, 0, +3, +6, +9, +12] on 4W, 4WG and IVC, [-3, -2, -1, 0, +1, +2, +3] on 2W."
+        },
+        "outputGain": {
+          "type": "integer",
+          "minimum": -12,
+          "maximum": 12,
+          "description": "Output gain in dB [-12, -9, -6, -3, 0, +3, +6, +9, +12] on 4W, 4WG and IVC, [-3, -2, -1, 0, +1, +2, +3] on 2W."
+        },
+        "vox": {
+          "type": "object",
+          "properties": {
+            "state": {
+              "type": "string",
+              "description": "Enable/disable VOX and select the mode.",
+              "enum": [
+                "disabled",
+                "fixed",
+                "adaptive"
+              ]
+            },
+            "threshold": {
+              "type": "integer",
+              "minimum": -60,
+              "maximum": -18,
+              "multipleOf": 2,
+              "description": "Threshold in dB used in fixed VOX mode. Note that if the interface isn't 2W, the dB value is actually offset by +18dB."
+            },
+            "delay": {
+              "type": "integer",
+              "enum": [ 500, 1000, 2000, 3000, 4000 ],
+              "description": "Delay in milliseconds to transition to silent state when silence is detected."
+            },
+            "events": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "enum": [ "talk", "control", "call" ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "state",
+            "delay",
+            "events"
+          ]
+        },
+        "networkQuality": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5,
+              "description": "Network quality type identifier.\n* 0 -> Very Low\n* 1 -> Low\n* 2 -> Balanced\n* 3 -> High\n* 4 -> Very High\n* 5 -> Custom"
+            },
+            "bitrate": {
+              "type": "integer",
+              "enum": [ 16, 32, 48, 64, 128 ],
+              "desciption": "Codec bitrate in kbps."
+            },
+            "packetSize": {
+              "type": "integer",
+              "enum": [ 5, 10, 20, 40, 60 ],
+              "description": "Packet duration in milliseconds."
+            },
+            "jitter": {
+              "type": "string",
+              "pattern": "^[0-9]+-[0-9]+$",
+              "description": "Jitter buffer range values."
+            }
+          }
+        },
+        "pinout": {
+          "type": "string",
+          "enum": [
+            "panel",
+            "matrix"
+          ],
+          "description": "4W pinout type"
+        },
+        "serial": {
+          "type": "object",
+          "properties": {
+            "state": {
+              "type": "string",
+              "enum": [
+                "enabled",
+                "disabled"
+              ],
+              "description": "The serial data connection state."
+            },
+            "baudRate": {
+              "type": "integer",
+              "enum": [
+                9600,
+                19200
+              ],
+              "description": "Baud rate used on 4W direct data ports."
+            },
+            "data": {
+              "type": "integer",
+              "enum": [ 8 ],
+              "description": "Data bits used on 4W direct data ports."
+            },
+            "parity": {
+              "type": "string",
+              "enum": [
+                "none",
+                "odd",
+                "even",
+                0
+              ],
+              "description": "set to 0 for FSII, use string for HN"
+            },
+            "stop": {
+              "type": "integer",
+              "enum": [ 1 ],
+              "description": "Stop bits used on 4W direct data ports."
+            },
+            "flowControl": {
+              "type": "string",
+              "enum": [ "none" ],
+              "description": "Stop bits used on 4W direct data ports."
+            },
+            "framingType": {
+              "type": "string",
+              "enum": [
+                "Eclipse/4000",
+                "Matrix Plus"
+              ],
+              "description": "The framing type used around packets."
+            }
+          }
+        },
+
+        "silenceSupp": {
+          "type": "boolean",
+          "description": "Enable/disable silence suppression on the codec."
+        },
+        "multiChannel": {
+          "type": "boolean",
+          "description": "true to allow this port to be assigned to more than 1 channel."
+        },
+
+        "externalNetworkQuality": {
+          "type": "string",
+          "enum": [
+            "default",
+            "wan",
+            "lan",
+            "internet"
+          ]
+        },
+        "externalSilenceSuppression": {
+          "type": "boolean"
+        },
+        "gpis": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "events"
+            ],
+            "properties": {
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "value"
+                  ],
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "enum": [ "control", "talk", "call" ]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "gpos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "events"
+            ],
+            "properties": {
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "value"
+                  ],
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "enum": [ "control", "talk", "call" ]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "pgmOutputEnabled": {
+          "type": "boolean"
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "clearcom",
+            "rtsPin2",
+            "rtsPin3"
+          ]
+        },
+        "gpoTriggerEnabled": {
+          "type": "boolean"
+        },
+        "rmkInputEnabled": {
+          "type": "boolean"
+        },
+        "rmkOutputEnabled": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "audioInterface_id_AudioInterface": {
+      "type": "integer",
+      "minimum": 256,
+      "description": "Global audio interface id."
+    },
+    "audioInterfaceType_shortName": {
+      "type": "string",
+      "enum": [
+        "2W",
+        "4W",
+        "4WG",
+        "IVC",
+        "E1",
+        "SIP"
+      ],
+      "description": "Interface short name for display purpose."
+    },
+    "audioInterfaceType_longName": {
+      "type": "string",
+      "enum": [
+        "2-Wire",
+        "4-Wire",
+        "4-Wire + GPIO",
+        "IVC",
+        "Station",
+        "SIP"
+      ],
+      "description": "Interface long name for display purpose."
+    },
+    "liveStatus": {
+      "type": "object",
+      "required": [
+        "vox",
+        "online"
+      ],
+      "properties": {
+        "vox": {
+          "type": "object",
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "online": {
+          "type": "boolean"
+        },
+        "externalConnectionStatus": {
+          "type": "string",
+          "description": "The external connection live status"
+        },
+        "sipRegistrationStatusCode": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "port_dver": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "port_desc": {
+      "type": "string",
+      "minLength": 1
+    },
+    "port_config_type": {
+      "type": "string",
+      "enum": [
+        "2W",
+        "4W",
+        "4WG",
+        "IVC",
+        "E1",
+        "SIP"
+      ],
+      "description": "Port configuration type code."
+    },
+    "port_externalDeviceId": {
+      "type": "integer",
+      "description": "For external ports, reference to the external device."
+    },
+    "port_externalPortId": {
+      "type": "integer",
+      "description": "For external ports, reference to the external port."
+    },
+    "lastUri": {
+      "type": "string",
+      "description": "URI of last call originating from this port"
+    }
+  },
+  "additionalProperties": false
+}

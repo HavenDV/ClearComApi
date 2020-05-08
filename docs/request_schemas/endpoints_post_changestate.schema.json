@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Change state",
+  "type": "object",
+  "properties": {
+    "lsCut": {
+      "type": "boolean",
+      "description": "Set the mute for the LS"
+    }
+  },
+  "additionalProperties": false
+}

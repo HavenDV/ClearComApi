@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Port Join Success Response",
+  "type": "object",
+  "required": [
+    "ok",
+    "message",
+    "confId"
+  ],
+  "properties": {
+    "ok": {
+      "type": "boolean",
+      "enum": [ true ]
+    },
+    "message": {
+      "type": "string"
+    },
+    "confId": {
+      "type": "integer"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Update",
+  "type": "object",
+  "definitions": {
+    "FSIIAntennaSettings": {
+      "type": "object",
+      "properties": {
+        "syncOffset": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 23,
+          "description": "Configure the synchronization offset based on the cable length:\n* 1 -> 0 - 69m\n* 2 -> 70 - 139m\n* 3 -> 140 - 209m\n* 4 -> 210 - 279m\n* 5 -> 280 - 349m\n* 6 -> 350 - 419m\n* 7 -> 420 - 489m\n* 8 -> 490 - 559m\n* 9 -> 560 - 629m\n* 10 -> 630 - 699m\n* 11 -> 700 - 769m\n* 12 -> 770 - 839m\n* 13 -> 840 - 909m\n* 14 -> 910 - 979m\n* 15 -> 980 - 1049m\n* 16 -> 1050 - 1119m\n* 17 -> 1120 - 1189m\n* 18 -> 1190 - 1259m\n* 19 -> 1260 - 1329m\n* 20 -> 1330 - 1399m\n* 21 -> 1400 - 1469m\n* 22 -> 1470 - 1539m\n* 23 -> 1540 - 1609m"
+        }
+      },
+      "additionalProperties": false
+    },
+    "FSIIBPSettings": {
+      "type": "object",
+      "properties": {
+        "default_role": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "The endpoint's default role id."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Endpoint label for display purpose."
+    },
+    "settings": {
+      "oneOf": [
+        {"$ref": "#/definitions/FSIIAntennaSettings"},
+        {"$ref": "#/definitions/FSIIBPSettings"}
+      ]
+    }
+  },
+  "additionalProperties": false
+}

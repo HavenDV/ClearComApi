@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Update external device",
+  "definitions": {
+    "IVCDevice": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 0,
+          "description": "The device identification label."
+        },
+        "settings": {
+          "type": "object",
+          "properties": {
+            "ip": {
+              "type": "string"
+            },
+            "port": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "SIPServer": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The SIP server identification label."
+        },
+        "settings": {
+          "type": "object",
+          "properties": {
+            "ip": {
+              "type": "string",
+              "description": "IP or hostname to reach the registrar."
+            },
+            "port": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "domain": {
+              "type": "string",
+              "description": "Default domain to be used for SIP users."
+            },
+            "protocol": {
+              "type": "string",
+              "enum": [
+                "udp",
+                "tcp",
+                "tls"
+              ],
+              "description": "Communication protocol to be used with the registrar."
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "anyOf": [
+    {
+      "$ref": "#/definitions/IVCDevice"
+    },
+    {
+      "$ref": "#/definitions/SIPServer"
+    }
+  ]
+}

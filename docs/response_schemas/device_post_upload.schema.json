@@ -1,0 +1,24 @@
+
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Upload firmware",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The uploaded file name."
+    },
+    "size": {
+      "type": "integer",
+      "description": "The uploaded file size in bytes."
+    },
+    "version": {
+      "type": "string",
+      "description": "Textual product version as read from the file."
+    },
+    "supported": {
+      "type": "boolean",
+      "description": "Whether the uploaded version can be used for upgrade."
+    }
+  }
+}

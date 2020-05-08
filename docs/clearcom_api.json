@@ -1,0 +1,3609 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "RESTful Route Definitions for Clear-Com Products",
+    "description": "Interact with Clear-Com devices using the Clear-Com API.",
+    "version": "1.0.0"
+  },
+  "schemes": [ "http" ],
+  "basePath": "/api/1",
+  "produces": [ "application/json" ],
+  "securityDefinitions": {
+    "basic": { "type": "basic" }
+  },
+  "security": [ { "basic": [] } ],
+  "paths": {
+    "/capabilities/devices": {
+      "get": {
+        "operationId": "getDevicesCapabilities",
+        "summary": "Devices Capabilities",
+        "description": "Returns capabilities for all supported devices.",
+        "tags": [ "Capabilities", "Devices" ],
+        "responses": {
+          "200": {
+            "description": "An array of capabilities",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/device_get_capability.schema.json"
+              }
+            }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-validation": {
+          "x-replyType": {
+            "FSII": {
+              "type": [
+                "FSII"
+              ]
+            },
+            "LQ": {
+              "type": [
+                "LQ-4W2",
+                "LQ-2W2",
+                "LQ-4WG2",
+                "LQ-R2W4",
+                "LQ-R4W8",
+                "LQ-R4W4",
+                "LQ-R4FWG",
+                "LQ-R4WG8",
+                "LQ-R2W2-4WG2",
+                "LQ-R2W4-4WG4",
+                "LQ-R2W4-4W4",
+                "HMS-4X"
+              ]
+            },
+            "HMS": {
+              "type": [
+                "HMS-4X",
+                "LQ-4W2",
+                "LQ-2W2",
+                "LQ-4WG2",
+                "LQ-R2W4",
+                "LQ-R4W8",
+                "LQ-R4W4",
+                "LQ-R4FWG",
+                "LQ-R4WG8",
+                "LQ-R2W2-4WG2",
+                "LQ-R2W4-4WG4",
+                "LQ-R2W4-4W4"
+              ]
+            }
+          }
+        }
+       }
+     },
+    "/capabilities/devices/{deviceType}": {
+      "get": {
+        "operationId": "getDeviceCapabilitiesByType",
+        "summary": "Device Capability",
+        "description": "Returns capability for the {deviceType}.",
+        "parameters": [
+          {
+            "name": "deviceType",
+            "in": "path",
+            "type": "string",
+            "enum": [ "HMS-4X",
+                      "LQ-4W2", "LQ-2W2",
+                      "LQ-4WG2", "LQ-R4W8", "LQ-R2W4", "LQ-R2W4-4W4",
+                      "LQ-R4WG8", "LQ-R2W2-4WG2", "LQ-R2W4-4WG4",
+                      "FSII" ],
+            "description": "Retrieve capability for this {deviceType}.",
+            "required": true
+          }
+        ],
+        "tags": [ "Capabilities", "Devices" ],
+        "responses": {
+          "200": {
+            "description": "The device {deviceType}'s capability.",
+            "schema": { "$ref": "./response_schemas/device_get_capability.schema.json" }
+          },
+          "404": {
+            "description": "The capabilities for {deviceType} weren't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      }
+    },
+    "/capabilities/connections": {
+      "get": {
+        "operationId": "getConnectionsCapabilities",
+        "summary": "Connections Capabilities",
+        "description": "Returns capabilities for all supported connections.",
+        "tags": [ "Capabilities", "Connections" ],
+        "responses": {
+          "200": {
+            "description": "An array of capabilities",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/connection_get_capability.schema.json"
+              }
+            }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-validation": {
+          "x-replyType": {
+            "FSII": {
+              "type": [
+                "partyline",
+                "group"
+              ]
+            },
+            "LQ": {
+              "type": [
+                "partyline",
+                "direct"
+              ]
+            },
+            "HMS": {
+              "type": [
+                "partyline"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/capabilities/connections/{connectionType}": {
+      "get": {
+        "operationId": "getConnectionCapabilitiesByType",
+        "summary": "Connection Capability",
+        "description": "Returns capability for the {connectionType}.",
+        "parameters": [
+          {
+            "name": "connectionType",
+            "in": "path",
+            "type": "string",
+            "enum": [ "partyline", "direct", "group" ],
+            "description": "Retrieve capability for this {connectionType}.",
+            "required": true
+          }
+        ],
+        "tags": [ "Capabilities", "Connections" ],
+        "responses": {
+          "200": {
+            "description": "The connection {connectionType}'s capability.",
+            "schema": { "$ref": "./response_schemas/connection_get_capability.schema.json" }
+          },
+          "404": {
+            "description": "The connections for {connectionType} weren't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      }
+    },
+    "/capabilities/interfaces": {
+      "get": {
+        "operationId": "getInterfacesCapabilities",
+        "summary": "Interfaces Capabilities",
+        "description": "Returns capabilities for all supported interfaces.",
+        "tags": [ "Capabilities", "Interfaces" ],
+        "responses": {
+          "200": {
+            "description": "An array of capabilities",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/interface_capability_get.schema.json"
+              }
+            }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-validation": {
+          "x-replyType": {
+            "FSII": {
+              "type": [
+                "FSII-2W",
+                "FSII-4W"
+              ]
+            },
+            "LQ": {
+              "type": [
+                "LQ-2W",
+                "LQ-4W",
+                "LQ-4WG",
+                "LQ-IVC",
+                "LQ-SIP"
+              ]
+            },
+            "HMS": {
+              "type": [
+                "HLI-2W",
+                "HLI-4W"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/capabilities/interfaces/{interfaceType}": {
+      "get": {
+        "operationId": "getInterfaceCapabilitiesByType",
+        "summary": "Interface Capability",
+        "description": "Returns capability for the {deviceType}.",
+        "parameters": [
+          {
+            "name": "interfaceType",
+            "in": "path",
+            "type": "string",
+            "enum": [ "FSII-2W", "FSII-4W",
+                      "HLI-2W", "HLI-4W",
+                      "LQ-2W", "LQ-4W", "LQ-4WG", "LQ-IVC" ],
+            "description": "Retrieve capability for this {deviceType}.",
+            "required": true
+          }
+        ],
+        "tags": [ "Capabilities", "Interfaces" ],
+        "responses": {
+          "200": {
+            "description": "The interface {interfaceType}'s capability.",
+            "schema": { "$ref": "./response_schemas/interface_capability_get.schema.json" }
+          },
+            "404": {
+            "description": "The interface {interfaceType}'s capabilities weren't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      }
+    },
+    "/capabilities/linkgroup": {
+      "get": {
+        "operationId": "getLinkGroupCapabilities",
+        "summary": "LinkGroup Capabilities",
+        "description": "Returns capabilities for the linkgroup.",
+        "tags": [ "Capabilities", "LinkGroup" ],
+        "responses": {
+          "200": {
+            "description": "The linkgroup's capability",
+            "schema": { "$ref": "./response_schemas/linkgroup_get_capability.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ", "HMS", "FSII" ]
+       }
+     },
+
+    "/version": {
+      "get": {
+        "operationId": "getVersion",
+        "summary": "API Version",
+        "description": "Returns information about the API version.",
+        "tags": [ "Capabilities" ],
+        "responses": {
+          "200": {
+            "description": "The API version",
+            "schema": { "$ref": "./response_schemas/version.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      }
+    },
+
+    "/devices": {
+      "get": {
+        "operationId": "getDevices",
+        "summary": "Devices",
+        "description": "Returns information about devices in the link-group.",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "type": "string",
+            "pattern": "^\\?([A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?(&[:,A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?)*)?$",
+            "required": false
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "An array of devices",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/device_get.schema.json"
+              }
+            }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      }
+    },
+    "/devices/{deviceId}": {
+      "get": {
+        "operationId": "getDeviceById",
+        "summary": "Device",
+        "description": "Returns information a bout the device represented by {deviceId}.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve configuration for this {deviceId}. If {deviceId} is 0, retrieve the host device.",
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "type": "string",
+            "pattern": "^\\?([A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?(&[:,A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?)*)?$",
+            "required": false
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "The device information",
+            "schema": { "$ref": "./response_schemas/device_get.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      },
+      "put": {
+        "operationId": "updateDevice",
+        "summary": "Update Device",
+        "description": "Update the device settings.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update this {deviceId}. If {deviceId} is 0, update the host device.",
+            "required": true
+          },
+          {
+            "name": "device",
+            "in": "body",
+            "description": "The device properties to update.",
+            "schema": { "$ref": "./request_schemas/devices_put_update.schema.json" }
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "When the request is successful.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-validation": {
+          "response_attribute_path": {
+            "label": [
+              "device_label"
+            ],
+            "adminPin": [
+              "device_settings",
+              "adminPin"
+            ],
+            "otaPin": [
+              "device_settings",
+              "otaPin"
+            ],
+            "wirelessId": [
+              "device_settings",
+              "wirelessId"
+            ],
+            "displayBrightness": [
+              "device_settings",
+              "displayBrightness"
+            ],
+            "network": [
+              "device_settings",
+              "network"
+            ],
+            "keysets": [
+              "device_settings",
+              "keysets"
+            ],
+            "aaBatteryType": [
+              "device_settings",
+              "aaBatteryType"
+            ],
+            "roleSorting": [
+              "device_settings",
+              "roleSorting"
+            ]
+          },
+          "result_mapping": {
+            "device_settings": {}
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteDevice",
+        "summary": "Delete Device",
+        "description": "Remove this device from the link-group. The device must be offline and the link-master available for this call.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Remove the offline device represented by this {deviceId}.",
+            "required": true
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "The device was successfully removed.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "400": {
+            "description": "The device {deviceId} is in use (not offline).",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      }
+    },
+    "/devices/{deviceId}/capability": {
+      "get": {
+        "operationId": "getDeviceCapability",
+        "summary": "Device Capability",
+        "description": "Returns capabilities about the device represented by {deviceId}.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve capabilities for this {deviceId}. If {deviceId} is 0, retrieve the host device.",
+            "required": true
+          }
+        ],
+        "tags": [ "Devices", "Capabilities" ],
+        "responses": {
+          "200": {
+            "description": "The device {deviceId}'s capabilities.",
+            "schema": { "$ref": "./response_schemas/device_get_capability.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      }
+    },
+    "/devices/{deviceId}/liveStatus": {
+      "get": {
+        "operationId": "getDevicesLiveStatus",
+        "summary": "Devices Live Status",
+        "description": "Returns the live status for this {deviceId}. If {deviceId} is 0, retrieve the host device..",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve liveStatus for this {deviceId}. If {deviceId} is 0, retrieve the host device.",
+            "required": true
+          }
+        ],
+        "tags": [ "Devices", "Live" ],
+        "responses": {
+          "200": {
+            "description": "An array of this {deviceId} live status",
+            "schema": {  "$ref": "./response_schemas/device_get_livestatus.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": {
+              "$ref": "./response_schemas/failure.schema.json"
+            }
+          },
+          "502": {
+            "description": "The remote server closed the connection."
+          }
+        },
+        "x-deviceType" : [ "HMS" ]
+      }
+    },
+    "/devices/{deviceId}/upload": {
+      "post": {
+        "operationId": "deviceUploadFirmware",
+        "summary": "Upload Firmware",
+        "description": "Upload a firmware file that will be used by a subsequent upgrade call.",
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Upgrade this {deviceId}. If {deviceId} is 0, upgrade the host device. Limitation: Only the host device can be upgraded for now.",
+            "required": true
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "The firmware file to use for the upgrade."
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "When the file is uploaded successfully.",
+            "schema": { "$ref": "./response_schemas/device_post_upload.schema.json" }
+          },
+          "400": {
+            "description": "The provided file doesn't match the expected format.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "413": {
+            "description": "The file is larger than the expected max firmware size for the device {deviceId}.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "503": {
+            "description": "Another operation is preventing this file upload.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-skipRoute": true
+      }
+    },
+    "/devices/{deviceId}/upgrade": {
+      "get": {
+        "operationId": "getDeviceUpgradeStatus",
+        "summary": "Upgrade Status",
+        "description": "Get the current upgrade status.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Get the upgrade status for this {deviceId}. If {deviceId} is 0, get the upgrade status from the host device. Limitation: You may upgrade only the host device but the status can be retrieved from any device.",
+            "required": true
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "When the upgrade status can be retrieved successfully.",
+            "schema": { "$ref": "./response_schemas/device_get_upgrade.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType": [ "FSII", "LQ", "HMS" ]
+      },
+      "post": {
+        "operationId": "deviceUpgrade",
+        "summary": "Upgrade Device",
+        "description": "Upgrade the device with the previously uploaded file.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Upgrade this {deviceId}. If {deviceId} is 0, upgrade the host device. Limitation: Only the host device can be upgraded for now.",
+            "required": true
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "When the request is successful and the upgrade is initiated.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-skipRoute": true
+      }
+    },
+    "/devices/{deviceId}/license": {
+      "post": {
+        "operationId": "deviceUpdateLicense",
+        "summary": "Update License",
+        "description": "Update the device license passcode to enable/disable features.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update this {deviceId}. If {deviceId} is 0, update the host device.",
+            "required": true
+          },
+          {
+            "name": "license",
+            "in": "body",
+            "description": "The license passcode to update.",
+            "schema": { "$ref": "./request_schemas/devices_post_license.schema.json" }
+          }
+        ],
+        "tags": [ "Devices", "Licenses" ],
+        "responses": {
+          "200": {
+            "description": "When the request is successful.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "HMS" ],
+        "x-negativeTestingOnly": true
+      }
+    },
+    "/devices/{deviceId}/license/context": {
+      "get": {
+        "operationId": "deviceGetLicenseContext",
+        "summary": "Retrieve Device License Context File",
+        "description": "Retrieve a WibuCmRaC file from this {deviceId}. This file is used for offline activation of licenses.",
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve the context on this {deviceId}. If {deviceId} is 0, retrieve the context on the host device.",
+            "required": true
+          }
+        ],
+        "tags": [ "Devices", "Licenses" ],
+        "responses": {
+          "200": {
+            "description": "The WibuCmRaC (context) file.",
+            "schema": {
+              "type": "file"
+            }
+          }
+        },
+        "x-deviceType" : [ "LQ" ],
+        "x-negativeTestingOnly": true
+      }
+    },
+    "/devices/{deviceId}/license/upload": {
+      "post": {
+        "operationId": "uploadLicenseFile",
+        "summary": "Upload License Activation File",
+        "description": "Upload a WibuCmRaU file to update the license activation (offline license activation)",
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Upload activation to this {deviceId}. If {deviceId} is 0, upload to the host device.",
+            "required": true
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "A WibuCmRaU file to update the license activation."
+          }
+        ],
+        "tags": [ "Devices", "Licenses" ],
+        "responses": {
+          "200": {
+            "description": "When the file is uploaded successfully and the license is activated.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "400": {
+            "description": "The provided file doesn't match the expected format.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "409": {
+            "description": "The license was already applied.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "500": {
+            "description": "The server failed to apply the license.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ" ],
+        "x-skipRoute": true
+      }
+    },
+    "/devices/{deviceId}/license/ticket/{ticketId}": {
+      "get": {
+        "operationId": "getLicenseTicketInfo",
+        "summary": "Get the license ticket info",
+        "description": "Get the available license features from a ticket.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Apply the license to device {deviceId}. If {deviceId} is 0, use the host device.",
+            "required": true
+          },
+          {
+            "name": "ticketId",
+            "in": "path",
+            "type": "string",
+            "description": "Apply the license to device {deviceId}. If {deviceId} is 0, use the host device.",
+            "required": true
+          }        ],
+        "tags": [ "Devices", "Licenses" ],
+        "responses": {
+          "200": {
+            "description": "The device will be added to the link-group.",
+            "schema": { "$ref": "./response_schemas/device_get_license_ticket.schema.json" }
+          },
+          "400": {
+            "description": "Missing or invalid mode.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "500": {
+            "description": "Failed to communicate with the license gateway or failed to apply the license.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ" ],
+        "x-skipRoute": true
+      },
+      "post": {
+        "operationId": "updateActivationsWithTicket",
+        "summary": "Update license activation with a ticket",
+        "description": "Activate the selected licenses from the ticket.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Apply the license to device {deviceId}. If {deviceId} is 0, use the host device.",
+            "required": true
+          },
+          {
+            "name": "ticketId",
+            "in": "path",
+            "type": "string",
+            "description": "The ticket from which to extract the activations.",
+            "required": true
+          },
+          {
+            "name": "features",
+            "in": "body",
+            "description": "The features to activate.",
+            "schema": { "$ref": "./request_schemas/devices_post_license_ticket.schema.json" }
+          }
+        ],
+        "tags": [ "Devices", "Licenses" ],
+        "responses": {
+          "200": {
+            "description": "The device will be added to the link-group.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "400": {
+            "description": "Missing or invalid mode.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "500": {
+            "description": "Failed to communicate with the license gateway.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ", "HMS" ],
+        "x-skipRoute": true
+      }
+    },
+    "/devices/{deviceId}/updatelinkingconfig": {
+      "post": {
+        "operationId": "updateLinkConfig",
+        "summary": "Update linking config",
+        "description": "Add a new device to the link-group",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Use device {deviceId} for adding a new device. If {deviceId} is 0, use the host device.",
+            "required": true
+          },
+          {
+            "name": "config",
+            "in": "body",
+            "description": "The device linking configuration.",
+            "schema": { "$ref": "./request_schemas/devices_post_updatelinkingconfig.schema.json" }
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "The device will be added to the link-group.",
+            "schema": { "$ref": "./response_schemas/slot.id.success.schema.json" }
+          },
+          "400": {
+            "description": "Missing or invalid mode.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-skipRoute": true
+      }
+    },
+    "/devices/{deviceId}/otastate": {
+      "post": {
+        "operationId": "deviceEnableOta",
+        "summary": "Enable OTA",
+        "description": "Enable OTA for 2 minutes.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Start OTA for this {deviceId}. If {deviceId} is 0, start OTA on the host device.",
+            "required": true
+          },
+          {
+            "name": "ota",
+            "in": "body",
+            "description": "OTA state to enable.",
+            "schema": { "$ref": "./request_schemas/devices_post_otastate.schema.json" }
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "OTA is enabled for 2 minutes.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII" ]
+      }
+    },
+    "/devices/{deviceId}/reboot": {
+      "post": {
+        "operationId": "deviceReboot",
+        "summary": "Reboot Device",
+        "description": "Reboot the specified device.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Reboot this {deviceId}. If {deviceId} is 0, reboot the host device.",
+            "required": true
+          },
+          {
+            "name": "reboot",
+            "in": "body",
+            "description": "The reboot configuration.",
+            "schema": { "$ref": "./request_schemas/devices_post_reboot.schema.json" }
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "The device will reboot.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-skipRoute": true
+      }
+    },
+    "/devices/{deviceId}/resettodefault": {
+      "post": {
+        "operationId": "deviceResetToDefault",
+        "summary": "Reset to default Device",
+        "description": "Reset to default the specified device.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Reset to default this {deviceId}. If {deviceId} is 0, reset to default the host device.",
+            "required": true
+          },
+          {
+            "name": "resettodefault",
+            "in": "body",
+            "description": "Control what will be reset.",
+            "schema": { "$ref": "./request_schemas/devices_post_resettodefault.schema.json" }
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "The device will reset to default.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-skipRoute": true
+      }
+    },
+    "/devices/{deviceId}/setnetmode": {
+      "post": {
+        "operationId": "deviceSetNetMode",
+        "summary": "Device Network Mode",
+        "description": "Set the device linking network mode.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Change the linking network mode for this {deviceId}. If {deviceId} is 0, reset to default the host device.",
+            "required": true
+          },
+          {
+            "name": "setnetmode",
+            "in": "body",
+            "description": "Select the linking network mode.",
+            "schema": { "$ref": "./request_schemas/devices_post_setnetmode.schema.json" }
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "When the request is successful.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ" ],
+        "x-validation": {
+          "route": "/devices/{deviceId}",
+          "response_attribute_path": {
+            "mode": [
+              "device_netMode"
+            ]
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/setupnetwork": {
+      "post": {
+        "operationId": "deviceSetupNetwork",
+        "summary": "Device Network Settings",
+        "description": "Change the network interface and external network settings.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Change the network interface and external network settings for this {deviceId}. If {deviceId} is 0, reset to default the host device.",
+            "required": true
+          },
+          {
+            "name": "setupnetwork",
+            "in": "body",
+            "description": "The network settings to configure.",
+            "schema": { "$ref": "./request_schemas/devices_post_setupnetwork.schema.json" }
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "The network settings were successfully applied.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-validation": {
+          "route": "/devices/{deviceId}",
+          "result_mapping": {
+            "device_settings": {}
+          }
+        }
+      }
+    },
+    "/devices/{deviceId}/snapshot": {
+      "post": {
+        "operationId": "deviceInitiateSnapshot",
+        "summary": "Initiate Device Snapshot",
+        "description": "Initiate a snaphost capture on the device.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update this {deviceId}. If {deviceId} is 0, update the host device.",
+            "required": true
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "When the snapshot is initiated. Call /devices/{deviceId}/snapshotinfo to query the snapshot progress.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-skipRoute": true
+      },
+      "get": {
+        "operationId": "deviceGetSnapshot",
+        "summary": "Retrieve Device Snapshot",
+        "description": "Retrieve the snapshot generated using the POST method on this {deviceId}.",
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Capture a snapshot on this {deviceId}. If {deviceId} is 0, capture a snapshot on the host device.",
+            "required": true
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "The snapshot file.",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "404": {
+            "description": "If the snapshot file isn't available.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-negativeTestingOnly": true
+      }
+    },
+    "/devices/{deviceId}/snapshotinfo": {
+      "get": {
+        "operationId": "deviceGetSnapshotInfo",
+        "summary": "Device Snapshot Status",
+        "description": "Get the snapshot progress for the pending snapshot generation {deviceId}.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Get the snapshot progress for this {deviceId}. If {deviceId} is 0, get the snapshot progress for the host device.",
+            "required": true
+          }
+        ],
+        "tags": [ "Devices" ],
+        "responses": {
+          "200": {
+            "description": "The snapshot info.",
+            "schema": { "$ref": "./response_schemas/device_get_snapshotinfo.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ],
+        "x-positiveTestingOnly": true
+      }
+    },
+
+    "/devices/endpoints": {
+      "get": {
+        "operationId": "getEndpointsOnAllDevices",
+        "summary": "All Endpoints",
+        "description": "Returns information about all the endpoints in the link-group.",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "type": "string",
+            "pattern": "^\\?([A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?(&[:,A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?)*)?$",
+            "required": false
+          }
+        ],
+        "tags": [ "Endpoints" ],
+        "responses": {
+          "200": {
+            "description": "An array of endpoints",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/endpoint_get.schema.json"
+              }
+            }
+          },
+          "400": {
+            "description": "No match for the filter",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "HMS", "LQ" ]
+      }
+    },
+    "/devices/{deviceId}/endpoints": {
+      "get": {
+        "operationId": "getEndpointsOnDevice",
+        "summary": "Device Endpoints",
+        "description": "Returns information about the endpoints attached to the device represented by {deviceId}.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve endpoints configuration for this {deviceId}. If {deviceId} is 0, retrieve the host device's endpoints.",
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "type": "string",
+            "pattern": "^\\?([A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?(&[:,A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?)*)?$",
+            "required": false
+          }
+        ],
+        "tags": [ "Endpoints" ],
+        "responses": {
+          "200": {
+            "description": "An array of endpoints",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/endpoint_get.schema.json"
+              }
+            }
+          },
+          "400": {
+            "description": "No match for the filter",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "HMS", "LQ" ]
+      }
+    },
+    "/devices/{deviceId}/endpoints/{endpointId}": {
+      "get": {
+        "operationId": "getEndpointOnDevice",
+        "summary": "Endpoint",
+        "description": "Returns information about the specific endpoint attached to the device represented by {deviceId}.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve endpoints configuration for this {deviceId}. If {deviceId} is 0, retrieve the host device's endpoints.",
+            "required": true
+          },
+          {
+            "name": "endpointId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve endpoint configuration for this {endpointId}.",
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "type": "string",
+            "pattern": "^\\?([A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?(&[:,A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?)*)?$",
+            "required": false
+          }
+        ],
+        "tags": [ "Endpoints" ],
+        "responses": {
+          "200": {
+            "description": "An endpoint",
+            "schema": { "$ref": "./response_schemas/endpoint_get.schema.json" }
+          },
+          "400": {
+            "description": "No match for the filter",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "The device/endpoint {deviceId}/{endpointId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "HMS", "LQ" ]
+      },
+      "put": {
+        "operationId": "updateEndpointOnDevice",
+        "summary": "Endpoint Update",
+        "description": "Update configuration of the endpoint {endpointId} attached to the device represented by {deviceId}.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update configuration for an endpoint attached to device {deviceId}. If {deviceId} is 0, use the host device",
+            "required": true
+          },
+          {
+            "name": "endpointId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update the endpoint's configuration for this {endpointId}.",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/endpoints_put_update.schema.json" }
+          }
+        ],
+        "tags": [ "Endpoints" ],
+        "responses": {
+          "200": {
+            "description": "When the request is successful.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "400": {
+            "description": "Role not found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "The device/endpoint {deviceId}/{endpointId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "HMS", "LQ" ]
+      },
+      "delete": {
+        "operationId": "deleteEndpointOnDevice",
+        "summary": "Unregister Endpoint",
+        "description": "Remove (unregister) this endpoint {endpointId} from the link-group.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve endpoints configuration for this {deviceId}. If {deviceId} is 0, retrieve the host device's endpoints.",
+            "required": true
+          },
+          {
+            "name": "endpointId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve endpoint configuration for this {endpointId}.",
+            "required": true
+          }
+        ],
+        "tags": [ "Endpoints" ],
+        "responses": {
+          "200": {
+            "description": "The endpoint was successfully removed/unregistered.",
+            "schema": { "$ref": "./response_schemas/endpoint_get.schema.json" }
+          },
+          "404": {
+            "description": "The device/endpoint {deviceId}/{endpointId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII" ]
+      }
+    },
+    "/devices/{deviceId}/endpoints/{endpointId}/changerole": {
+      "post": {
+        "operationId": "endpointChangeRole",
+        "summary": "Endpoint Role",
+        "description": "Change role for the endpoint {endpointId} attached to the device represented by {deviceId}.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update role for an endpoint attached to device {deviceId}. If {deviceId} is 0, use the host device.",
+            "required": true
+          },
+          {
+            "name": "endpointId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update the endpoint's role for this {endpointId}.",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/endpoints_post_changerole.schema.json" }
+          }
+        ],
+        "tags": [ "Endpoints" ],
+        "responses": {
+          "200": {
+            "description": "When the request is successful.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "400": {
+            "description": "Role not found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "403": {
+            "description": "Role is not compatible with endpoint type",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "The device/endpoint {deviceId}/{endpointId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "HMS", "LQ" ],
+        "x-negativeTestingOnly": true
+      }
+    },
+    "/devices/{deviceId}/endpoints/{endpointId}/state": {
+      "post": {
+        "operationId": "endpointChangeState",
+        "summary": "Endpoint State",
+        "description": "Change state for the endpoint {endpointId} attached to the device represented by {deviceId}.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update state for an endpoint attached to device {deviceId}. If {deviceId} is 0, use the host device.",
+            "required": true
+          },
+          {
+            "name": "endpointId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update the endpoint's state for this {endpointId}.",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/endpoints_post_changestate.schema.json" }
+          }
+        ],
+        "tags": [ "Endpoints" ],
+        "responses": {
+          "200": {
+            "description": "When the request is successful.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device/endpoint {deviceId}/{endpointId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS" ]
+      }
+    },
+    "/devices/{deviceId}/endpoints/{endpointId}/reboot": {
+      "post": {
+        "operationId": "endpointRebootOnDevice",
+        "summary": "Reboot Endpoint",
+        "description": "Reboot the specified endpoint.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Reboot this {endpointId} on this {deviceId}. If {deviceId} is 0, reboot the endpoint on the host device. Only valid for HelixNet endpoints.",
+            "required": true
+          },
+          {
+            "name": "endpointId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update the endpoint's configuration for this {endpointId}.",
+            "required": true
+          },
+          {
+            "name": "reboot",
+            "in": "body",
+            "description": "The reboot configuration.",
+            "schema": { "$ref": "./request_schemas/devices_post_reboot.schema.json" }
+          }
+        ],
+        "tags": [ "Endpoints" ],
+        "responses": {
+          "200": {
+            "description": "The endpoint will reboot.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device/endpoint {deviceId}/{endpointId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "LQ" ],
+        "x-skipRoute": true
+      }
+    },
+    "/devices/{deviceId}/endpoints/{endpointId}/resettodefault": {
+      "post": {
+        "operationId": "endpointResetToDefaultOnDevice",
+        "summary": "Reset to default Endpoint",
+        "description": "Reset to default the specified endpoint.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Reset to default this {endpointId} on this {deviceId}. If {deviceId} is 0, reset to default the endpoint on the host device. Only valid for HelixNet endpoints.",
+            "required": true
+          },
+          {
+            "name": "endpointId",
+            "in": "path",
+            "type": "integer",
+            "description": "Reset to default for this {endpointId}.",
+            "required": true
+          },
+          {
+            "name": "resettodefault",
+            "in": "body",
+            "description": "Control what will be reset.",
+            "schema": { "$ref": "./request_schemas/devices_post_resettodefault.schema.json" }
+          }
+        ],
+        "tags": [ "Endpoints" ],
+        "responses": {
+          "200": {
+            "description": "The endpoint will reset to default.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device/endpoint {deviceId}/{endpointId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "LQ" ],
+        "x-skipRoute": true
+      }
+    },
+    "/devices/{deviceId}/endpoints/{endpointId}/snapshot": {
+      "get": {
+        "operationId": "endpointGetSnapshotOnDevice",
+        "summary": "Retrieve Endpoint snapshot.",
+        "description": "Retrieve the snapshot generated using the POST method on this {deviceId}. Only valid for HelixNet endpoints.",
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Capture a snapshot on this {deviceId}. If {deviceId} is 0, capture a snapshot on the host device.",
+            "required": true
+          },
+          {
+            "name": "endpointId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve endpoint configuration for this {endpointId}.",
+            "required": true
+          }
+        ],
+        "tags": [ "Endpoints" ],
+        "responses": {
+          "200": {
+            "description": "The snapshot file.",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "404": {
+            "description": "If the snapshot file isn't available.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "LQ" ],
+        "x-negativeTestingOnly": true
+      }
+    },
+    "/devices/{deviceId}/endpoints/{endpointId}/unregister": {
+      "post": {
+        "operationId": "endpointUnregister",
+        "summary": "Unregister Endpoint",
+        "description": "Unregister endpoint from device. Applicable only to FSII beltpacks.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Unregister from this {deviceId}. If {deviceId} is 0, unregister from the host device.",
+            "required": true
+          },
+          {
+            "name": "endpointId",
+            "in": "path",
+            "type": "integer",
+            "description": "Unregister the endpoint {endpointId}.",
+            "required": true
+          }
+        ],
+        "tags": [ "Endpoints" ],
+        "responses": {
+          "200": {
+            "description": "The endpoint was unregistered/removed from the device.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device/endpoint {deviceId}/{endpointId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII" ]
+      }
+    },
+
+    "/externalDevices": {
+      "get": {
+        "operationId": "getExternalDevices",
+        "summary": "External Devices",
+        "description": "Returns information about external devices and ports in the link-group.",
+        "tags": [ "ExternalDevices" ],
+        "responses": {
+          "200": {
+            "description": "An array of external devices and ports",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/externalDevice_get.schema.json"
+              }
+            }
+          }
+        },
+        "x-deviceType" : [ "LQ" ]
+      },
+      "post": {
+        "operationId": "addExternalDevice",
+        "summary": "Add External Device",
+        "description": "Create an external device in the link-group.",
+        "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/externalDevices_post_add.schema.json" }
+          }
+        ],
+        "tags": [ "ExternalDevices" ],
+        "responses": {
+          "200": {
+            "description": "When the request is successful.",
+            "schema": { "$ref": "./response_schemas/externalDevice.success.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ" ],
+        "x-validation": {
+           "response_attribute_path":{
+              "externalDeviceId": ["newDevice", "id"]
+          },
+          "route": "/externalDevices/{externalDeviceId}"
+        }
+      }
+    },
+    "/externalDevices/{externalDeviceId}": {
+      "get": {
+        "operationId": "getExternalDeviceById",
+        "summary": "External Device",
+        "description": "Returns the configuration of the external device {externalDeviceId} and its ports.",
+        "parameters": [
+          {
+            "name": "externalDeviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve configuration for this {externalDeviceId}.",
+            "required": true
+          }
+        ],
+        "tags": [
+          "ExternalDevices"
+        ],
+        "responses": {
+          "200": {
+            "description": "An single external device and ports assigned",
+            "schema": {
+              "$ref": "./response_schemas/externalDevice_get.schema.json"
+            }
+          },
+          "404": {
+            "description": "{externalDeviceId} not found",
+            "schema": {
+              "$ref": "./response_schemas/failure.schema.json"
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ"
+        ]
+      },
+      "put": {
+        "operationId": "updateExternalDeviceById",
+        "summary": "External Device",
+        "description": "Update the configuration of the external device {externalDeviceId} and its ports.",
+        "parameters": [
+          {
+            "name": "externalDeviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update configuration for this {externalDeviceId}.",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/externalDevices_put_update.schema.json" }
+          }
+        ],
+        "tags": [
+          "ExternalDevices"
+        ],
+        "responses": {
+          "200": {
+            "description": "The external device was successfully updated.",
+            "schema": {
+              "$ref": "./response_schemas/externalDevice_get.schema.json"
+            }
+          },
+          "404": {
+            "description": "{externalDeviceId} not found",
+            "schema": {
+              "$ref": "./response_schemas/failure.schema.json"
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteExternalDevice",
+        "summary": "Remove External Device",
+        "description": "Remove this external device {externalDeviceId} from the link-group, along with all associated external ports.",
+        "parameters": [
+          {
+            "name": "externalDeviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Remove the external device represented by this {externalDeviceId}.",
+            "required": true
+          }
+        ],
+        "tags": [ "ExternalDevices" ],
+        "responses": {
+          "200": {
+            "description": "The external device was successfully removed.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The external device {externalDeviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ" ]
+      }
+    },
+    "/externalDevices/{externalDeviceId}/ports": {
+      "get": {
+        "operationId": "getExternalDevicePorts",
+        "summary": "Get the External Device's ports",
+        "description": "Returns the ports of the external device {externalDeviceId}",
+        "parameters": [
+          {
+            "name": "externalDeviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve ports for this {externalDeviceId}.",
+            "required": true
+          }
+        ],
+        "tags": [
+          "ExternalDevices"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of ports",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/externalPort_get.schema.json"
+              }
+            }
+          },
+          "404": {
+            "description": "{externalDeviceId} not found",
+            "schema": {
+              "$ref": "./response_schemas/failure.schema.json"
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ"
+        ]
+      },
+      "post": {
+        "operationId": "addExternalDevicePort",
+        "summary": "Add External Device Port",
+        "description": "Add an external port to external device {externalDeviceId}.",
+        "parameters": [
+          {
+            "name": "externalDeviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Add port to this {externalDeviceId}.",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/externalPorts_post_add.schema.json" }
+          }
+        ],
+        "tags": [ "ExternalDevices", "Ports" ],
+        "responses": {
+          "200": {
+            "description": "When the request is successful.",
+            "schema": { "$ref": "./response_schemas/externalPort.success.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ" ],
+        "x-validation": {
+           "response_attribute_path":{
+              "externalDeviceId": ["newPort", "externalDeviceId"],
+              "portId": ["newPort", "id"]
+          },
+          "route": "/externalDevices/{externalDeviceId}/ports/{portId}"
+        }
+      }
+    },
+    "/externalDevices/{externalDeviceId}/ports/{portId}": {
+      "put": {
+        "operationId": "updateExternalDevicePort",
+        "summary": "Update External Device Port",
+        "description": "Update configuration for external port {portId} attached to external device {externalDeviceId}.",
+        "parameters": [
+          {
+            "name": "externalDeviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update external port configuration for this {externalDeviceId}.",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update external port configuration for this {portId}",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/externalPorts_put_update.schema.json" }
+          }
+        ],
+        "tags": [ "ExternalDevices", "Ports" ],
+        "responses": {
+          "200": {
+            "description": "Port updated",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The device {externalDeviceId} or {portId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ" ]
+      },
+      "delete": {
+        "operationId": "deleteExternalDevicePort",
+        "summary": "Delete External Device Port",
+        "description": "Delete the external port represented by {portId} on external device {externalDeviceId}.",
+        "parameters": [
+          {
+            "name": "externalDeviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Delete external port configuration for this external {externalDeviceId}.",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Delete the external port {portId}",
+            "required": true
+          }
+        ],
+        "tags": [  "ExternalDevices", "Ports" ],
+        "responses": {
+          "200": {
+            "description": "Deletion confirmation",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The external device {externalDeviceId} or external port {portId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ" ]
+      },
+      "get": {
+        "operationId": "getExternalDevicePort",
+        "summary": "Get External Device Port",
+        "description": "Gets the external port represented by {portId} on external device {externalDeviceId}.",
+        "parameters": [
+          {
+            "name": "externalDeviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Get external port configuration for this external {externalDeviceId}.",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Get the external port {portId}",
+            "required": true
+          }
+        ],
+        "tags": [  "ExternalDevices", "Ports" ],
+        "responses": {
+          "200": {
+            "description": "An external port",
+            "schema": { "$ref": "./response_schemas/externalPort_get.schema.json" }
+          },
+          "404": {
+            "description": "The external device {externalDeviceId} or external port {portId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ" ]
+      }
+    },
+
+    "/users": {
+      "get": {
+        "operationId": "getUsers",
+        "summary": "Users",
+        "description": "Returns information about users in the link-group.",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "type": "string",
+            "pattern": "^\\?([A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?(&[:,A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?)*)?$",
+            "required": false
+          }
+        ],
+        "tags": [ "Users" ],
+        "responses": {
+          "200": {
+            "description": "An array of users",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/user_get.schema.json"
+              }
+            }
+          },
+          "500": {
+            "description": "Issue reading from the password store",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "LQ", "FSII" ]
+      }
+    },
+    "/users/{username}": {
+      "get": {
+        "operationId": "getUserByName",
+        "summary": "User",
+        "description": "Returns information about user {username} in the link-group",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "type": "string",
+            "description": "The user configuration to retreive. 'admin' is the only supported user for now.",
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "type": "string",
+            "pattern": "^\\?([A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?(&[:,A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?)*)?$",
+            "required": false
+          }
+        ],
+        "tags": [ "Users" ],
+        "responses": {
+          "200": {
+            "description": "A single user",
+            "schema": {
+              "$ref": "./response_schemas/user_get.schema.json"
+            }
+          },
+          "404": {
+            "description": "{username} not found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "500": {
+            "description": "Issue reading from the password store",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "LQ", "FSII" ]
+      },
+      "put": {
+        "operationId": "updateUser",
+        "summary": "Update User",
+        "description": "Update User information.",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "type": "string",
+            "description": "The user's password to change. 'admin' is the only supported user for now.",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/users_put_update.schema.json" }
+          }
+        ],
+        "tags": [ "Users" ],
+        "responses": {
+          "200": {
+            "description": "Password updated",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "400": {
+            "description": "Password must be 32 characters or less.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "403": {
+            "description": "Old password is incorrect.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "{username} not found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "500": {
+            "description": "Issue writing to the password store",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "LQ", "FSII" ]
+      }
+    },
+
+    "/devices/interfaces": {
+      "get": {
+        "operationId": "getInterfacesOnAllDevices",
+        "summary": "All Interfaces",
+        "description": "Returns information about all interfaces.",
+        "tags": [ "Interfaces" ],
+        "responses": {
+          "200": {
+            "description": "An array of interfaces",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/interface_get.schema.json"
+              }
+            }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ" ]
+      }
+    },
+    "/devices/{deviceId}/interfaces": {
+      "get": {
+        "operationId": "getInterfacesOnDevice",
+        "summary": "Device Interfaces",
+        "description": "Returns information about the interfaces attached to the device represented by {deviceId}.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve interface configurations for this {deviceId}. If {deviceId} is 0, retrieve the host device's interfaces.",
+            "required": true
+          }
+        ],
+        "tags": [ "Interfaces" ],
+        "responses": {
+          "200": {
+            "description": "An array of interfaces",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/interface_get.schema.json"
+              }
+            }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ" ]
+      }
+    },
+    "/devices/{deviceId}/interfaces/{interfaceId}": {
+      "get": {
+        "operationId": "getInterfaceOnDevice",
+        "summary": "Interface",
+        "description": "Returns information about a specific interface",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve interface configurations for this {deviceId}. If {deviceId} is 0, retrieve the host device's interfaces.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve interface configuration for this {interfaceId}",
+            "required": true
+          }
+        ],
+        "tags": [ "Interfaces" ],
+        "responses": {
+          "200": {
+            "description": "A single interface",
+            "schema": {
+              "$ref": "./response_schemas/interface_get.schema.json"
+            }
+          },
+          "404": {
+            "description": "The device {deviceId} or interface {interfaceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ" ]
+      },
+      "put": {
+        "operationId": "updateInterfaceOnDevice",
+        "summary": "Update Interface",
+        "description": "Update Interface settings.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID of device that the interface to update is hosted by.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Interface ID of the interface to update {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/interfaces_put_update.schema.json" }
+          }
+        ],
+        "tags": [ "Interfaces" ],
+        "responses": {
+          "200": {
+            "description": "Interface updated",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "{deviceId} or {interfaceId} not found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "500": {
+            "description": "Failed to updated Interface",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ" ]
+      }
+    },
+    "/devices/{deviceId}/interfaces/capability": {
+      "get": {
+        "operationId": "getInterfacesCapabilitiesOnDevice",
+        "summary": "Device Interfaces Capabilities",
+        "description": "Returns information about the capabilities of all interfaces on a device",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve interface capabilities for this {deviceId}. If {deviceId} is 0, retrieve it for the host device's interface.",
+            "required": true
+          }
+        ],
+        "tags": [ "Capabilities", "Interfaces" ],
+        "responses": {
+          "200": {
+            "description": "Capabilities for a single interface",
+            "schema": {
+              "items":{
+                "$ref": "./response_schemas/interface_capability_get.schema.json"
+              }
+            }
+          },
+          "404": {
+            "description": "The device {deviceId} or interface {interfaceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ" ]
+      }
+    },
+    "/devices/{deviceId}/interfaces/{interfaceId}/capability": {
+      "get": {
+        "operationId": "getInterfaceCapabilitiesOnDevice",
+        "summary": "Device Interface Capabilities",
+        "description": "Returns information about the capabilities of a specific interface",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve interface capabilities for this {deviceId}. If {deviceId} is 0, retrieve it for the host device's interface.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve interface capabilities for this {interfaceId}",
+            "required": true
+          }
+        ],
+        "tags": [ "Capabilities", "Interfaces" ],
+        "responses": {
+          "200": {
+            "description": "Capabilities for a single interface",
+            "schema": {
+              "$ref": "./response_schemas/interface_capability_get.schema.json"
+            }
+          },
+          "404": {
+            "description": "The device {deviceId} or interface {interfaceId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ" ]
+      }
+    },
+
+    "/devices/interfaces/ports": {
+      "get": {
+        "operationId": "getPortsOnDevice",
+        "summary": "Device Interfaces Ports",
+        "description": "Returns information about all ports and interfaces.",
+        "tags": [ "Ports" ],
+        "responses": {
+          "200": {
+            "description": "An array of ports",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/port_get.schema.json"
+              }
+            }
+          },
+          "404": {
+            "description": "The device {deviceId} wasn't found.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "FSII", "LQ" ]
+      },
+      "put": {
+        "operationId": "updatePortsOnDevice",
+        "summary": "Update Interface Ports",
+        "description": "Update configuration for one or multiple ports. All ports have to be from the same device.",
+        "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/ports_put_update.schema.json" }
+          }
+        ],
+        "tags": [ "Ports" ],
+        "responses": {
+          "200": {
+            "description": "All ports have been updated.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "403": {
+            "description": "All targeted ports must be from the same device (as spcified in the 'res' parameter)",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "One of the ports could not be found.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "FSII", "LQ" ]
+      }
+    },
+    "/devices/{deviceId}/interfaces/{interfaceId}/ports": {
+      "get": {
+        "operationId": "getPortsOnInterfaceOnDevice",
+        "summary": "Port",
+        "description": "Returns information about the ports",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve port configurations for this {deviceId}. If {deviceId} is 0, retrieve the host device's interfaces.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve port configuration for this {interfaceId}",
+            "required": true
+          }
+        ],
+        "tags": [ "Ports" ],
+        "responses": {
+         "200": {
+            "description": "An array of ports",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/port_get.schema.json"
+              }
+            }
+          },
+          "404": {
+            "description": "The device {deviceId} or interface {interfaceId} or {portId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "FSII", "LQ" ]
+      }
+    },
+    "/devices/{deviceId}/interfaces/{interfaceId}/ports/{portId}": {
+      "get": {
+        "operationId": "getPortOnInterfaceOnDevice",
+        "summary": "Port",
+        "description": "Returns information about a specific port",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve port configurations for this {deviceId}. If {deviceId} is 0, retrieve the host device's interfaces.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve port configuration for this {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve port configuration for this {portId}",
+            "required": true
+          }
+        ],
+        "tags": [ "Ports" ],
+        "responses": {
+          "200": {
+            "description": "A single Port",
+            "schema": {
+              "$ref": "./response_schemas/port_get.schema.json"
+            }
+          },
+          "404": {
+            "description": "The device {deviceId} or interface {interfaceId} or {portId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "FSII", "LQ" ]
+      },
+      "put": {
+        "operationId": "updatePortOnDevice",
+        "summary": "Update Interface Port",
+        "description": "Update configuration for a single port.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve port configuration for this {deviceId}. If {deviceId} is 0, retrieve the host device's interfaces.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve port configuration for this {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve port configuration for this {portId}",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/ports_put_update.schema.json" }
+          }
+        ],
+        "tags": [ "Ports" ],
+        "responses": {
+          "200": {
+            "description": "The port has been updated.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The port could not be found.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "FSII", "LQ" ]
+      }
+    },
+    "/devices/{deviceId}/interfaces/{interfaceId}/ports/{portId}/nulling": {
+      "get": {
+        "operationId": "getPortNullingStatus",
+        "summary": "Port Nulling Status",
+        "description": "Returns the nulling status of a port. Only available on 2W ports.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID {deviceId}. If {deviceId} is 0, the host's device ID is used.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Interface ID {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Port ID {portId}",
+            "required": true
+          }
+        ],
+        "tags": [ "Ports" ],
+        "responses": {
+          "200": {
+            "description": "The port's nulling status.",
+            "schema": {
+              "$ref": "./response_schemas/port_nulling.success.schema.json"
+            }
+          },
+          "404": {
+            "description": "The device {deviceId} or interface {interfaceId} or {portId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "FSII", "LQ" ]
+      },
+      "post": {
+        "operationId": "startPortNulling",
+        "summary": "Start Port Nulling",
+        "description": "Start the nulling process on a port. Only available on 2W ports.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID {deviceId}. If {deviceId} is 0, the host's device ID is used.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Interface ID {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Port ID {portId}",
+            "required": true
+          }
+        ],
+        "tags": [ "Ports" ],
+        "responses": {
+          "200": {
+            "description": "The port's nulling process has been started.",
+            "schema": { "$ref": "./response_schemas/port_nulling.success.schema.json" }
+          },
+          "404": {
+            "description": "The port could not be found.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "FSII", "LQ" ],
+        "x-validation": {
+          "port_pre_condition": "2W"
+       }
+      }
+    },
+    "/devices/{deviceId}/interfaces/{interfaceId}/ports/{portId}/gpo": {
+      "post": {
+        "operationId": "setPortGpoState",
+        "summary": "Set Port GPO State",
+        "description": "Sets the state of a port's GPO for test purposes. Only available on 4W-GPIO ports.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID {deviceId}. If {deviceId} is 0, the host's device ID is used.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Interface ID {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Port ID {portId}",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/ports_post_gpo.schema.json" }
+          }
+        ],
+        "tags": [ "Ports" ],
+        "responses": {
+          "200": {
+            "description": "The port's GPO status has been set.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The port could not be found.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ" ]
+      }
+    },
+    "/devices/{deviceId}/interfaces/{interfaceId}/ports/{portId}/join": {
+      "post": {
+        "operationId": "joinPortToConnection",
+        "summary": "Join Connection",
+        "description": "Makes the port join a connection.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID {deviceId}. If {deviceId} is 0, the host's device ID is used.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Interface ID {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Port ID {portId}",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+          "schema": { "$ref": "./request_schemas/ports_post_join.schema.json" }
+          }
+        ],
+        "tags": [ "Ports" ],
+        "responses": {
+          "200": {
+            "description": "The port has joined the connection.",
+            "schema": { "$ref": "./response_schemas/port_join.success.schema.json" }
+          },
+          "404": {
+            "description": "The port could not be found.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "FSII", "LQ" ],
+        "x-validation": {
+          "route": "/devices/{deviceId}/interfaces/{interfaceId}/ports/{portId}",
+          "skip_post_response_validation": true,
+          "response_attribute_path": {
+            "target": [
+              "port_connections"
+            ]
+          },
+          "uri_payload_validation": "added"
+        }
+      }
+    },
+    "/devices/{deviceId}/interfaces/{interfaceId}/ports/{portId}/leave": {
+      "post": {
+        "operationId": "leavePortToConnection",
+        "summary": "Leave Connection",
+        "description": "Makes the port leave from a connection.",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID {deviceId}. If {deviceId} is 0, the host's device ID is used.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Interface ID {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Port ID {portId}",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/ports_post_leave.schema.json" }
+          }
+        ],
+        "tags": [ "Ports" ],
+        "responses": {
+          "200": {
+            "description": "The port has left the connection.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The port could not be found.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "HMS", "FSII", "LQ" ],
+        "x-validation": {
+          "route": "/devices/{deviceId}/interfaces/{interfaceId}/ports/{portId}",
+          "skip_post_response_validation": true,
+          "response_attribute_path": {
+            "target": [
+              "port_connections"
+            ]
+          },
+          "uri_payload_validation": "removed"
+        }
+      }
+    },
+
+    "/devices/interfaces/ports/calls": {
+      "get": {
+        "operationId": "getAllCalls",
+        "summary": "Get all active Calls for Link-Group",
+        "description": "Retrieve all active calls in the link-group",
+        "tags": [
+          "Devices",
+          "Calls"
+        ],
+        "responses": {
+          "200": {
+            "description": "The call states",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/call_get.schema.json"
+              }
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ"
+        ]
+      },
+      "delete": {
+        "operationId": "hangupDevicesCalls",
+        "summary": "Hang all calls",
+        "description": "Hang up all calls on all online devices",
+        "tags": [
+          "Devices",
+          "Calls"
+        ],
+        "responses": {
+          "200": {
+            "description": "Hang up for all calls initiated",
+            "schema": {
+              "$ref": "./response_schemas/success.schema.json"
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ"
+        ]
+      }
+    },
+    "/devices/{deviceId}/interfaces/ports/calls": {
+      "get": {
+        "operationId": "getCallsForDevice",
+        "summary": "Get all active Calls for a Device",
+        "description": "Retrieve all active calls for a specific device",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID {deviceId}. If {deviceId} is 0, the host's device ID is used.",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Devices",
+          "Calls"
+        ],
+        "responses": {
+          "200": {
+            "description": "The call states",
+            "schema": {
+              "type": "array",
+              "items":{
+                "$ref": "./response_schemas/call_get.schema.json"
+              }
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ"
+        ]
+      },
+      "delete": {
+        "operationId": "hangupDeviceCalls",
+        "summary": "Hang all device calls",
+        "description": "Hang all calls on the specified device",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID {deviceId}. If {deviceId} is 0, the host's device ID is used.",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Devices",
+          "Calls"
+        ],
+        "responses": {
+          "200": {
+            "description": "Hang up for calls initiated",
+            "schema": {
+              "$ref": "./response_schemas/success.schema.json"
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ"
+        ]
+      }
+    },
+    "/devices/{deviceId}/interfaces/{interfaceId}/ports/{portId}/calls": {
+      "get": {
+        "operationId": "getCallsForPort",
+        "summary": "Get all active Calls for a Port",
+          "description": "Retrieve all active calls for a specific port",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID {deviceId}. If {deviceId} is 0, the host's device ID is used.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Interface ID {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Port ID {portId}",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Ports",
+          "Calls"
+        ],
+        "responses": {
+          "200": {
+            "description": "The call states",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/call_get.schema.json"
+              }
+            }
+          },
+          "404": {
+            "description": "The call could not be found",
+            "schema": {
+              "$ref": "./response_schemas/failure.schema.json"
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ"
+        ]
+      },
+      "post":{
+        "operationId": "makeCall",
+        "summary": "Make a call",
+        "description": "Makes a call with to the specified URI/Number",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID {deviceId}. If {deviceId} is 0, the host's device ID is used.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Interface ID {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Port ID {portId}",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": {
+              "$ref": "./request_schemas/calls_post_add.schema.json"
+            }
+          }
+        ],
+        "tags": [
+          "Ports",
+          "Calls"
+        ],
+        "responses": {
+          "200": {
+            "description": "When the call request was accepted",
+            "schema": {
+              "$ref": "./response_schemas/call.success.schema.json"
+            }
+          },
+          "403": {
+            "description": "The call could not be made",
+            "schema": {
+              "$ref": "./response_schemas/failure.schema.json"
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ"
+        ],
+        "x-negativeTestingOnly": true
+      }
+    },
+    "/devices/{deviceId}/interfaces/{interfaceId}/ports/{portId}/calls/{callId}": {
+      "get": {
+        "operationId": "getCall",
+        "summary": "Get a single active Call",
+        "description": "Retrieve a single active call",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID {deviceId}. If {deviceId} is 0, the host's device ID is used.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Interface ID {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Port ID {portId}",
+            "required": true
+          },
+          {
+            "name": "callId",
+            "in": "path",
+            "type": "integer",
+            "description": "Call ID {portId}",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Ports",
+          "Calls"
+        ],
+        "responses": {
+          "200": {
+            "description": "The call state",
+            "schema": {
+              "$ref": "./response_schemas/call_get.schema.json"
+            }
+          },
+          "404": {
+            "description": "The call could not be found",
+            "schema": {
+              "$ref": "./response_schemas/failure.schema.json"
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ"
+        ]
+      },
+      "delete": {
+        "operationId": "hangupCall",
+        "summary": "Hang up a Call",
+        "description": "Hang up a single call",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID {deviceId}. If {deviceId} is 0, the host's device ID is used.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Interface ID {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Port ID {portId}",
+            "required": true
+          },
+          {
+            "name": "callId",
+            "in": "path",
+            "type": "integer",
+            "description": "Call ID {portId}",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Ports",
+          "Calls"
+        ],
+        "responses": {
+          "200": {
+            "description": "Call hang up initiated",
+            "schema": {
+              "$ref": "./response_schemas/success.schema.json"
+            }
+          },
+          "403": {
+            "description": "The call could not be hungup",
+            "schema": {
+              "$ref": "./response_schemas/failure.schema.json"
+            }
+          },
+          "404": {
+            "description": "The call could not be found",
+            "schema": {
+              "$ref": "./response_schemas/failure.schema.json"
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ"
+        ]
+      }
+    },
+    "/devices/{deviceId}/interfaces/{interfaceId}/ports/{portId}/calls/{callId}/senddtmf": {
+      "post": {
+        "operationId": "sendDTMF",
+        "summary": "Injects a string as a DTMF message to an ongoing call",
+        "description": "Retrieve a single active call",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Device ID {deviceId}. If {deviceId} is 0, the host's device ID is used.",
+            "required": true
+          },
+          {
+            "name": "interfaceId",
+            "in": "path",
+            "type": "integer",
+            "description": "Interface ID {interfaceId}",
+            "required": true
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "type": "integer",
+            "description": "Port ID {portId}",
+            "required": true
+          },
+          {
+            "name": "callId",
+            "in": "path",
+            "type": "integer",
+            "description": "Call ID {callId}",
+            "required": true
+          },
+          {
+            "name": "dtmf",
+            "in": "body",
+            "description": "The string to send as DTMF.",
+            "schema": { "$ref": "./request_schemas/calls_post_send_dtmf.schema.json" }
+          }
+        ],
+        "tags": [
+          "Ports",
+          "Calls",
+          "DTMF"
+        ],
+        "responses": {
+          "200": {
+            "description": "DTMF injected in call",
+            "schema": {
+              "$ref": "./response_schemas/success.schema.json"
+            }
+          },
+          "404": {
+            "description": "The call could not be found",
+            "schema": {
+              "$ref": "./response_schemas/failure.schema.json"
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ"
+        ]
+      }
+    },
+
+
+    "/connections": {
+      "get": {
+        "operationId": "getConnections",
+        "summary": "Connections",
+        "description": "Returns information about all the connections in the link-group.",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "type": "string",
+            "pattern": "^\\?([A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?(&[:,A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?)*)?$",
+            "required": false
+          }
+        ],
+        "tags": [ "Connections" ],
+        "responses": {
+          "200": {
+            "description": "An array of connections",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/connection_get.schema.json"
+              }
+            }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      },
+      "post": {
+        "operationId": "addConnection",
+        "summary": "Add Connection",
+        "description": "Create a connection in the link-group.",
+        "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/connections_post_add.schema.json" }
+          }
+        ],
+        "tags": [ "Connections" ],
+        "responses": {
+          "200": {
+            "description": "When the request is successful.",
+            "schema": { "$ref": "./response_schemas/res.id.success.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ"]
+      }
+    },
+    "/connections/liveStatus": {
+      "get": {
+        "operationId": "getConnectionsLiveStatus",
+        "summary": "Connections Live Status",
+        "description": "Returns all of the connections live status in the link-group.",
+        "tags": [ "Connections", "Live" ],
+        "responses": {
+          "200": {
+            "description": "An array of connection live status",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/connection_get_livestatus.schema.json"
+              }
+            }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      }
+    },
+    "/connections/{connectionId}": {
+      "get": {
+        "operationId": "getConnectionById",
+        "summary": "Connection",
+        "description": "Returns the connection represented by {connectionId}.",
+        "parameters": [
+          {
+            "name": "connectionId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve configuration for this connection {connectionId}",
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "type": "string",
+            "pattern": "^\\?([A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?(&[:,A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?)*)?$",
+            "required": false
+          }
+        ],
+        "tags": [ "Connections" ],
+        "responses": {
+          "200": {
+            "description": "The connection configuration",
+            "schema": { "$ref": "./response_schemas/connection_get.schema.json" }
+          },
+          "400": {
+            "description": "No matching {connectionId} for the filter",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "The connection {connectionId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      },
+      "put": {
+        "operationId": "updateConnection",
+        "summary": "Update Connection",
+        "description": "Update the connection {connectionId} information.",
+        "parameters": [
+          {
+            "name": "connectionId",
+            "in": "path",
+            "type": "integer",
+            "description": "Update this {connectionId}.",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "description": "The connection's properties to update.",
+            "schema": { "$ref": "./request_schemas/connections_put_update.schema.json" }
+          }
+        ],
+        "tags": [ "Connections" ],
+        "responses": {
+          "200": {
+            "description": "Connection updated",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "{connectionId} not found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      },
+      "delete": {
+        "operationId": "deleteConnection",
+        "summary": "Delete Connection",
+        "description": "Delete the connection represented by {connectionId}.",
+        "parameters": [
+          {
+            "name": "connectionId",
+            "in": "path",
+            "type": "integer",
+            "description": "Delete the connection {connectionId}",
+            "required": true
+          }
+        ],
+        "tags": [ "Connections" ],
+        "responses": {
+          "200": {
+            "description": "Deletion confirmation",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "The connection {connectionId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ" ]
+      }
+    },
+    "/connections/{connectionId}/liveStatus": {
+      "get": {
+        "operationId": "getConnectionLiveStatus",
+        "summary": "Connection Live Status",
+        "description": "Returns the connection's live status.",
+        "parameters": [
+          {
+            "name": "connectionId",
+            "in": "path",
+            "type": "integer",
+            "description": "Retrieve the live status for this connection {connectionId}",
+            "required": true
+          }
+        ],
+        "tags": [ "Connections", "Live" ],
+        "responses": {
+          "200": {
+            "description": "The connection live status",
+            "schema": { "$ref": "./response_schemas/connection_get_livestatus.schema.json" }
+          },
+           "404": {
+            "description": "The connection {connectionId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      }
+    },
+
+    "/roles": {
+      "get": {
+        "operationId": "getRoles",
+        "summary": "Roles",
+        "description": "Returns information about all roles in the link-group.",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "type": "string",
+            "pattern": "^\\?([A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?(&[:,A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?)*)?$",
+            "required": false
+          }
+        ],
+        "tags": [ "Roles" ],
+        "responses": {
+          "200": {
+            "description": "An array of roles",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/role_get.schema.json"
+              }
+            }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      },
+      "post": {
+        "operationId": "addRole",
+        "summary": "Add Role",
+        "description": "Create a new role in the link-group.",
+        "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/roles_post_add.schema.json" }
+          }
+        ],
+        "tags": [ "Roles" ],
+        "responses": {
+          "200": {
+            "description": "When the request is successful.",
+            "schema": { "$ref": "./response_schemas/res.id.success.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      }
+    },
+    "/roles/{roleId}": {
+      "get": {
+        "operationId": "getRoleById",
+        "summary": "Role",
+        "description": "Returns the role represented by {roleId}.",
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "path",
+            "type": "integer",
+            "description": "The role id to be retrieved",
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "type": "string",
+            "pattern": "^\\?([A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?(&[:,A-Za-z0-9_-]+(=[:,A-Za-z0-9_-]*)?)*)?$",
+            "required": false
+          }
+        ],
+        "tags": [ "Roles" ],
+        "responses": {
+          "200": {
+            "description": "The role settings",
+            "schema": { "$ref": "./response_schemas/role_get.schema.json" }
+          },
+          "404": {
+            "description": "The role {roleId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "HMS" ]
+      },
+      "put": {
+        "operationId": "updateRole",
+        "summary": "Update Role",
+        "description": "Update Role information.",
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "path",
+            "type": "integer",
+            "description": "The role id to be updated",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/roles_put_update.schema.json" }
+          }
+        ],
+        "tags": [ "Roles" ],
+        "responses": {
+          "200": {
+            "description": "Role updated",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "400": {
+            "description": "Role could not be parsed (or was too large).",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "403": {
+            "description": "Cannot change isDefault value.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "Role {roleId} not found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      },
+      "delete": {
+        "operationId": "deleteRole",
+        "summary": "Delete Role",
+        "description": "Delete the role represented by {roleId}.",
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "path",
+            "type": "integer",
+            "description": "The role id to be deleted",
+            "required": true
+          }
+        ],
+        "tags": [ "Roles" ],
+        "responses": {
+          "200": {
+            "description": "Deletion confirmation",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "403": {
+            "description": "Cannot delete a default role.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "The role {roleId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      }
+    },
+    "/roles/{roleId}/reset": {
+      "post": {
+        "operationId": "roleReset",
+        "summary": "Reset Role",
+        "description": "Reset Role configuration.",
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "path",
+            "type": "integer",
+            "description": "The role id to be reset",
+            "required": true
+          }
+        ],
+        "tags": [ "Roles" ],
+        "responses": {
+          "200": {
+            "description": "Default role reset to it's default settings.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "403": {
+            "description": "Can only reset a default role.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "Role {roleId} not found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "FSII", "LQ", "HMS" ]
+      }
+    },
+    "/ivpusers": {
+      "get": {
+        "operationId": "getIVPUsers",
+        "summary": "Get's the Agent-IC users",
+        "description": "Returns the agent-ic users",
+        "tags": [
+          "IVPUsers",
+          "Agent-IC"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of agent-ic users",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "./response_schemas/ivpuser_get.schema.json"
+              }
+            }
+          }
+        },
+        "x-deviceType": [
+          "LQ", "HMS"
+        ]
+      },
+      "post": {
+        "operationId": "addIVPUser",
+        "summary": "Add Agent-IC User",
+        "description": "Add an agent-ic user.",
+        "parameters": [
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/ivpusers_post_add.schema.json" }
+          }
+        ],
+        "tags": [ 
+          "IVPUsers",
+          "Agent-IC"
+        ],
+        "responses": {
+          "200": {
+            "description": "When the request is successful.",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "400": {
+            "description": "When the request is unsuccessful, caused by too many users already created.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "403": {
+            "description": "When the request is unsuccessful, caused by invalid settings.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "500": {
+            "description": "When the request is unsuccessful, caused by an unknown error.",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ", "HMS" ]
+      }
+    },
+    "/ivpusers/{userId}": {
+      "get": {
+        "operationId": "getAgentICUserById",
+        "summary": "AIC",
+        "description": "Returns the agent-ic users represented by {userId}.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "type": "integer",
+            "description": "The agent ic user id to be retrieved",
+            "required": true
+          }
+        ],
+        "tags": [ 
+          "IVPUsers",
+          "Agent-IC"
+        ],
+        "responses": {
+          "200": {
+            "description": "The agent ic settings",
+            "schema": { "$ref": "./response_schemas/ivpuser_get.schema.json" }
+          },
+          "404": {
+            "description": "The agent ic user {userId} wasn't found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ", "HMS" ]
+      },
+      "put": {
+        "operationId": "updateAgentICUser",
+        "summary": "Update Agent-IC User",
+        "description": "Update Agent-IC user information.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "type": "integer",
+            "description": "The agent-ic user id to be updated",
+            "required": true
+          },
+          {
+            "name": "params",
+            "in": "body",
+            "schema": { "$ref": "./request_schemas/ivpusers_put_update.schema.json" }
+          }
+        ],
+        "tags": [ 
+          "IVPUsers",
+          "Agent-IC"
+        ],
+        "responses": {
+          "200": {
+            "description": "Agent-IC user updated",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "400": {
+            "description": "Agent-IC usercould not be parsed (or was too large).",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          },
+          "404": {
+            "description": "Agent-IC user {userId} not found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ", "HMS" ]
+      },
+      "delete": {
+        "operationId": "deleteAgentICUser",
+        "summary": "Delete Agent-IC User",
+        "description": "Delete the agent-ic user represented by {userId}.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "type": "integer",
+            "description": "The agent-ic user id to be deleted",
+            "required": true
+          }
+        ],
+        "tags": [ 
+          "IVPUsers",
+          "Agent-IC"
+        ],
+        "responses": {
+          "200": {
+            "description": "Deletion confirmation",
+            "schema": { "$ref": "./response_schemas/success.schema.json" }
+          },
+          "404": {
+            "description": "Agent-IC user {userId} not found",
+            "schema": { "$ref": "./response_schemas/failure.schema.json" }
+          }
+        },
+        "x-deviceType" : [ "LQ", "HMS" ]
+      }
+    }
+  }
+}
+

@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "LinkGroup Capabilities",
+  "type": "object",
+  "properties": {
+    "connections": {
+      "type":"array",
+      "description": "The types of connections supported in the link group",
+      "items": {
+        "properties": {
+          "dynamic": {
+            "type": "boolean"
+          },
+          "labelLength": {
+            "type": "integer"
+          },
+          "max": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "partyline",
+              "direct",
+              "group"
+            ]
+          }
+        }
+      }
+    },
+    "externalSystems": {
+      "type":"array",
+      "description": "The types of external systems supported in the link group",
+      "items": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "IVC",
+              "SIP"
+            ]
+          }
+        }
+      }
+    },
+    "users": {
+      "type": "array",
+      "description": "The types of IVP users supported in the link group",
+      "items": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "LQ-AIC"
+            ]
+          }
+        }
+      }
+    },
+    "roles": {
+      "type":"array",
+      "description": "The types of roles supported in the link group",
+      "items": {
+        "properties": {
+          "labelLength": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "LQ-AIC",
+              "HMS-4X",
+              "HBP-2X",
+              "HRM-4X",
+              "HKB-2X",
+              "FSII-BP"
+            ]
+          }
+        }
+      }
+    },
+    "networkOptimization": {
+      "type":"array",
+      "description": "The types of network optimization supported in the link group",
+      "items": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "LAN",
+              "WAN"
+            ]
+          }
+        }
+      }
+    },
+    "maxRoles": {
+      "type": "integer"
+    },
+    "codec": {
+      "type": "string",
+      "enum": [
+        "Opus",
+        "Wavepack"
+      ]
+    },
+    "showConnectionBridgeOptionsIcon": {
+      "type": "boolean"
+    },
+    "showNetworkExternalConnectivitySection": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

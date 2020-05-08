@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Version",
+  "type": "object",
+  "required": [
+    "apiVersion"
+  ],
+  "properties": {
+    "apiVersion": {
+      "type": "integer"
+    },
+    "serverName": {
+      "type": "string"
+    },
+    "serverVersion": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

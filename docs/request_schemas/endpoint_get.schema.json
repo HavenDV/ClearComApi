@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Endpoint",
+  "type": "object",
+  "required": [
+    "id",
+    "device_id",
+    "res",
+    "type"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Unique endpoint id within the link group."
+    },
+    "device_id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Id of device that owns the endpoint."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "HMS-4X",
+        "HBP-2X",
+        "HRM-4X",
+        "HKB-2X",
+
+        "FSII-BP",
+        "FSII-Antenna"
+      ],
+      "description": "Currently supported endpoints enumeration."
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Hardware revision for the type."
+    },
+    "frequencyType": {
+      "type": "string",
+      "enum": [
+        "1.9",
+        "2.4"
+      ],
+      "x-deviceType" : [ "FSII" ],
+      "description": "Frequency used by antennnas to connect beltpacks."
+    },
+    "ip": {
+      "type": "string",
+      "format": "ipv4",
+      "x-deviceType" : [ "HMS" ],
+      "description": "Endpoint's external up address, If device is connected through powerline, field is removed."
+    },
+    "res": {
+      "type": "string",
+      "description": "Uri that can be used to address the endpoint using REST."
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "UI name for endpoint identification."
+    },
+    "role": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "isDefault",
+        "res"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Unique role id within the link group."
+        },
+        "label": {
+          "type": "string",
+          "description": "UI name for endpoint's role identification."
+        },
+        "isDefault": {
+          "type": "boolean",
+          "description": "Role assigned to endpoint is the default one."
+        },
+        "res": {
+          "type": "string",
+          "description": "Uri that can be used to address the endpoint's role using REST."
+        }
+      },
+      "description": "Endpoint's currently assigned role."
+    },
+    "versionSW": {
+      "type": "string",
+      "description": "Endpoint's firmware version."
+    },
+    "liveStatus": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+     "properties": {
+        "status": {
+         "type": "string",
+         "enum": [
+          "online",
+          "offline"
+          ]
+        },
+        "role": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "settings": {
+          "type": "object",
+          "properties": {
+            "syncOffset": {
+              "type": "integer"
+            }
+          },
+          "additionalProperties": false
+        },
+        "frequencyType": {
+          "type": "string",
+          "enum": [
+            "1.9",
+            "2.4"
+          ]
+        },
+        "syncState": {
+          "type": "string",
+          "enum": [
+            "good"
+          ]
+        },
+        "antennaIndex": {
+          "type": "integer"
+        },
+        "antennaSlot": {
+          "type": "integer"
+        },
+        "batteryType": {
+          "type": "string",
+          "enum": [
+           "Li-Ion",
+           "Alkaline"
+          ]
+        },
+        "batteryLevel": {
+          "type": "integer"
+        },
+        "RSSSI": {
+          "type": "integer"
+        },
+        "linkQuality": {
+          "type": "integer"
+        },
+        "frameErrorRate": {
+          "type": "integer"
+        },
+        "longevity": {
+          "type": "object",
+          "properties": {
+           "hours": {
+            "type": "integer"
+           },
+           "minutes": {
+            "type": "integer"
+           }
+          }
+        }
+       },
+     "description": "Specific to FSII."
+    },
+    "updateRequired": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

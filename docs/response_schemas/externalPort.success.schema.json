@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Success response",
+  "type": "object",
+  "required": [
+    "ok",
+    "newPort"
+  ],
+  "definitions": {
+    "IVC32PortSettings": {
+      "type": "object",
+      "required": [
+        "login",
+        "password",
+        "assignedDeviceId"
+      ],
+      "properties": {
+        "login": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "IVC32 port login name."
+        },
+        "password": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "IVC32 port password."
+        },
+        "assignedDeviceId": {
+          "type": ["integer", "null"],
+          "description": "Device id to which this external port is assigned."
+        }
+      },
+      "additonalProperties": false
+    },
+    "SIPLineSettings": {
+      "type": "object",
+      "required": [
+        "login",
+        "password",
+        "assignedDeviceId"
+      ],
+      "properties": {
+        "login": {
+          "type": "string",
+          "description": "SIP line login name."
+        },
+        "password": {
+          "type": "string",
+          "description": "SIP line password."
+        },
+        "assignedDeviceId": {
+          "type": ["integer", "null"],
+          "description": "Device id to which this external port is assigned."
+        }
+      },
+      "additonalProperties": false
+    }
+  },
+  "properties": {
+    "ok": {
+      "type": "boolean",
+      "enum": [ true ]
+    },
+    "newPort": {
+      "type": "object",
+      "required": [
+        "type",
+        "id",
+        "externalDeviceId",
+        "label",
+        "desc",
+        "settings",
+        "res"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "The port id unique only within the external device."
+        },
+        "externalDeviceId": {
+          "type": "integer",
+          "description": "The parent external device id."
+        },
+        "type": {
+          "type": "string",
+          "enum": [ "IVC", "SIP" ],
+          "description": "External port type compatible with the parent external device type."
+        },
+        "label": {
+          "type": "string",
+          "description": "Label for display purpose."
+        },
+        "desc": {
+          "type": "string",
+          "description": "Short code to identify the port."
+        },
+        "settings": {
+          "anyOf": [
+            { "$ref": "#/definitions/IVC32PortSettings" },
+            { "$ref": "#/definitions/SIPLineSettings" }
+          ]
+        },
+        "res": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

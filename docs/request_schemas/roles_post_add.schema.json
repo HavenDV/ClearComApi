@@ -1,0 +1,1580 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Add",
+  "definitions": {
+    "HMS4XSettings": {
+      "type": "object",
+      "required": [
+        "displayBrightness",
+        "keyBrightness",
+        "screensaverMode",
+        "menuAccessEnabled",
+        "allTalkBtnMode",
+        "rmkBtnMode",
+        "keysets",
+        "sidetoneGain",
+        "sidetoneControl",
+        "headphoneLimit",
+        "headphoneGain",
+        "headsetMicType",
+        "micHeadroom",
+        "micContourFilterEnabled",
+        "pgmLabel",
+        "pgmGpoTriggerEnabled",
+        "pgmVoxOffDelayMs",
+        "pgmIfbDimLevel",
+        "pgmAssignments",
+        "pgmGain",
+        "pgmVoxEnabled",
+        "saGain",
+        "saLabel",
+        "saBtnLatchEnabled",
+        "hotMicGain",
+        "loudspeakerDimLevel",
+        "gpios"
+      ],
+      "properties": {
+        "displayBrightness": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "keyBrightness": {
+          "type": "string",
+          "enum": [
+            "highLow",
+            "highOff",
+            "lowOff",
+            "offOff"
+          ]
+        },
+        "screensaverMode": {
+          "type": "string",
+          "enum": [
+            "disabled",
+            "blank",
+            "connectionName",
+            "roleName",
+            "hostName"
+          ]
+        },
+        "menuAccessEnabled": {
+          "type": "boolean"
+        },
+        "allTalkBtnMode": {
+          "type": "string",
+          "enum": [
+            "all",
+            "visible"
+          ]
+        },
+        "rmkBtnMode": {
+          "type": "string",
+          "enum": [
+            "all",
+            "visible",
+            "disabled"
+          ]
+        },
+        "keysets": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "required": [
+              "keysetIndex",
+              "connections",
+              "talkBtnMode"
+            ],
+            "properties": {
+              "keysetIndex": {
+                "type": "integer"
+              },
+              "connections": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "res"
+                  ],
+                  "properties": {
+                    "res": {
+                      "type": "string",
+                      "pattern": "^/api/1/connections/[0-9]+$"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "talkBtnMode": {
+                "type": "string",
+                "enum": [
+                  "latching",
+                  "non-latching",
+                  "disabled"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "sidetoneGain": {
+          "type": "integer",
+          "minimum": -18,
+          "maximum": 0,
+          "multipleOf": 6
+        },
+        "sidetoneControl": {
+          "type": "string",
+          "enum": [
+            "tracking",
+            "non-tracking",
+            "disabled"
+          ]
+        },
+        "headphoneLimit": {
+          "type": "string",
+          "enum": [
+            "off",
+            "6",
+            "0",
+            "-6"
+          ]
+        },
+        "headphoneGain": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 12,
+          "multipleOf": 3
+        },
+        "headsetMicType": {
+          "type": "string",
+          "enum": [
+            "electret",
+            "dynamic_0",
+            "dynamic_10"
+          ]
+        },
+        "micHeadroom": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "high"
+          ]
+        },
+        "micContourFilterEnabled": {
+          "type": "boolean"
+        },
+        "pgmLabel": {
+          "type": "string"
+        },
+        "pgmGain": {
+          "type": "integer",
+          "minimum": -12,
+          "maximum": 12,
+          "multipleOf": 6
+        },
+        "pgmVoxEnabled": {
+          "type": "boolean"
+        },
+        "pgmGpoTriggerEnabled": {
+          "type": "boolean"
+        },
+        "pgmVoxOffDelayMs": {
+          "type": "integer",
+          "minimum": 500,
+          "maximum": 4000
+        },
+        "pgmIfbDimLevel": {
+          "type": "integer",
+          "minimum": -80,
+          "maximum": 0
+        },
+        "pgmAssignments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "res"
+            ],
+            "properties": {
+              "res": {
+                "type": "string",
+                "pattern": "^/api/1/connections/[1-9]+$"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "saLabel": {
+          "type": "string"
+        },
+        "saGain": {
+          "type": "integer",
+          "minimum": -12,
+          "maximum": 12,
+          "multipleOf": 6
+        },
+        "saBtnLatchEnabled": {
+          "type": "boolean"
+        },
+        "hotMicGain": {
+          "type": "integer",
+          "minimum": -12,
+          "maximum": 12,
+          "multipleOf": 6
+        },
+        "loudspeakerDimLevel": {
+          "type": "integer",
+          "minimum": -24,
+          "maximum": 0
+        },
+        "gpios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "events",
+              "hwIndex",
+              "label",
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "opto",
+                  "relay"
+                ]
+              },
+              "hwIndex": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4
+              },
+              "label": {
+                "type": "string"
+              },
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "value"
+                  ],
+                  "properties": {
+                    "connections": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "res"
+                        ],
+                        "properties": {
+                          "res": {
+                            "type": "string",
+                            "pattern": "^/api/1/connections/[0-9]+$"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "localKeyPress",
+                        "connection"
+                      ]
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "HRM4XSettings": {
+      "type": "object",
+      "required": [
+        "displayBrightness",
+        "keyBrightness",
+        "screensaverMode",
+        "menuAccessEnabled",
+        "allTalkBtnMode",
+        "rmkBtnMode",
+        "keysets",
+        "sidetoneGain",
+        "sidetoneControl",
+        "headphoneLimit",
+        "headphoneGain",
+        "headsetMicType",
+        "micHeadroom",
+        "micContourFilterEnabled",
+        "pgmLabel",
+        "pgmGain",
+        "pgmVoxEnabled",
+        "pgmGpoTriggerEnabled",
+        "pgmVoxOffDelayMs",
+        "pgmIfbDimLevel",
+        "pgmAssignments",
+        "saLabel",
+        "saGain",
+        "saBtnLatchEnabled",
+        "saConnectionAssignModeEnabled",
+        "saConnectionAssignments",
+        "saPgmOutputEnabled",
+        "hotMicGain",
+        "loudspeakerDimLevel",
+        "gpios"
+      ],
+      "properties": {
+        "displayBrightness": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "keyBrightness": {
+          "type": "string",
+          "enum": [
+            "highLow",
+            "highOff",
+            "lowOff",
+            "offOff"
+          ]
+        },
+        "screensaverMode": {
+          "type": "string",
+          "enum": [
+            "disabled",
+            "blank",
+            "connectionName",
+            "roleName",
+            "hostName"
+          ]
+        },
+        "menuAccessEnabled": {
+          "type": "boolean"
+        },
+        "allTalkBtnMode": {
+          "type": "string",
+          "enum": [
+            "all",
+            "visible"
+          ]
+        },
+        "rmkBtnMode": {
+          "type": "string",
+          "enum": [
+            "all",
+            "visible",
+            "disabled"
+          ]
+        },
+        "keysets": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "required": [
+              "keysetIndex",
+              "connections",
+              "talkBtnMode"
+            ],
+            "properties": {
+              "keysetIndex": {
+                "type": "integer"
+              },
+              "connections": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "res"
+                  ],
+                  "properties": {
+                    "res": {
+                      "type": "string",
+                      "pattern": "^/api/1/connections/[0-9]+$"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "talkBtnMode": {
+                "type": "string",
+                "enum": [
+                  "latching",
+                  "non-latching",
+                  "disabled"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "sidetoneGain": {
+          "type": "integer",
+          "minimum": -18,
+          "maximum": 0,
+          "multipleOf": 6
+        },
+        "sidetoneControl": {
+          "type": "string",
+          "enum": [
+            "tracking",
+            "non-tracking",
+            "disabled"
+          ]
+        },
+        "headphoneLimit": {
+          "type": "string",
+          "enum": [
+            "off",
+            "6",
+            "0",
+            "-6"
+          ]
+        },
+        "headphoneGain": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 12,
+          "multipleOf": 3
+        },
+        "headsetMicType": {
+          "type": "string",
+          "enum": [
+            "electret",
+            "dynamic_0",
+            "dynamic_10"
+          ]
+        },
+        "micHeadroom": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "high"
+          ]
+        },
+        "micContourFilterEnabled": {
+          "type": "boolean"
+        },
+        "pgmLabel": {
+          "type": "string"
+        },
+        "pgmGain": {
+          "type": "integer",
+          "minimum": -12,
+          "maximum": 12,
+          "multipleOf": 6
+        },
+        "pgmVoxEnabled": {
+          "type": "boolean"
+        },
+        "pgmGpoTriggerEnabled": {
+          "type": "boolean"
+        },
+        "pgmVoxOffDelayMs": {
+          "type": "integer",
+          "minimum": 500,
+          "maximum": 4000
+        },
+        "pgmIfbDimLevel": {
+          "type": "integer",
+          "minimum": -80,
+          "maximum": 0
+        },
+        "pgmAssignments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "res"
+            ],
+            "properties": {
+              "res": {
+                "type": "string",
+                "pattern": "^/api/1/connections/[1-9]+$"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "saLabel": {
+          "type": "string"
+        },
+        "saGain": {
+          "type": "integer",
+          "minimum": -12,
+          "maximum": 12,
+          "multipleOf": 6
+        },
+        "saBtnLatchEnabled": {
+          "type": "boolean"
+        },
+        "saConnectionAssignModeEnabled": {
+          "type": "boolean"
+        },
+        "saConnectionAssignments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "res"
+            ],
+            "properties": {
+              "res": {
+                "type": "string",
+                "pattern": "^/api/1/connections/[0-9]+$"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "saPgmOutputEnabled": {
+          "type": "boolean"
+        },
+        "hotMicGain": {
+          "type": "integer",
+          "minimum": -12,
+          "maximum": 12,
+          "multipleOf": 6
+        },
+        "loudspeakerDimLevel": {
+          "type": "integer",
+          "enum": [
+            0,
+            -3,
+            -6,
+            -12,
+            -24
+          ]
+        },
+        "gpios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "hwIndex",
+              "label",
+              "events"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "opto",
+                  "relay"
+                ]
+              },
+              "hwIndex": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4
+              },
+              "label": {
+                "type": "string"
+              },
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "value"
+                  ],
+                  "properties": {
+                    "connections": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "res"
+                        ],
+                        "properties": {
+                          "res": {
+                            "type": "string",
+                            "pattern": "^/api/1/connections/[0-9]+$"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "localKeyPress",
+                        "connection"
+                      ]
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "HKB2XSettings": {
+      "type": "object",
+      "required": [
+        "displayBrightness",
+        "keyBrightness",
+        "screensaverMode",
+        "unlatchOnShiftEnabled",
+        "menuAccessEnabled",
+        "keysets",
+        "sidetoneGain",
+        "sidetoneControl",
+        "headphoneLimit",
+        "headphoneGain",
+        "headsetMicType",
+        "micHeadroom",
+        "micContourFilterEnabled",
+        "loudspeakerDimLevel"
+      ],
+      "properties": {
+        "displayBrightness": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "keyBrightness": {
+          "type": "string",
+          "enum": [
+            "highLow",
+            "highOff",
+            "lowOff",
+            "offOff"
+          ]
+        },
+        "screensaverMode": {
+          "type": "string",
+          "enum": [
+            "disabled",
+            "blank",
+            "connectionName",
+            "roleName",
+            "hostName"
+          ]
+        },
+        "unlatchOnShiftEnabled": {
+          "type": "boolean"
+        },
+        "menuAccessEnabled": {
+          "type": "boolean"
+        },
+        "keysets": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "required": [
+              "keysetIndex",
+              "connections",
+              "talkBtnMode"
+            ],
+            "properties": {
+              "keysetIndex": {
+                "type": "integer"
+              },
+              "connections": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "res"
+                  ],
+                  "properties": {
+                    "res": {
+                      "type": "string",
+                      "pattern": "^/api/1/connections/[0-9]+$"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "talkBtnMode": {
+                "type": "string",
+                "enum": [
+                  "latching",
+                  "non-latching",
+                  "disabled"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "sidetoneGain": {
+          "type": "integer",
+          "minimum": -18,
+          "maximum": 0,
+          "multipleOf": 6
+        },
+        "sidetoneControl": {
+          "type": "string",
+          "enum": [
+            "tracking",
+            "non-tracking",
+            "disabled"
+          ]
+        },
+        "headphoneLimit": {
+          "type": "string",
+          "enum": [
+            "off",
+            "6",
+            "0",
+            "-6"
+          ]
+        },
+        "headphoneGain": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 12,
+          "multipleOf": 3
+        },
+        "headsetMicType": {
+          "type": "string",
+          "enum": [
+            "electret",
+            "dynamic_0",
+            "dynamic_10"
+          ]
+        },
+        "micHeadroom": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "high"
+          ]
+        },
+        "micContourFilterEnabled": {
+          "type": "boolean"
+        },
+        "loudspeakerDimLevel": {
+          "type": "integer",
+          "minimum": -24,
+          "maximum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "HBP2XSettings": {
+      "type": "object",
+      "required": [
+        "displayBrightness",
+        "keyBrightness",
+        "screensaverMode",
+        "menuAccessEnabled",
+        "rotateDisplayEnabled",
+        "vibrateOnCallEnabled",
+        "keysets",
+        "sidetoneGain",
+        "sidetoneControl",
+        "headphoneLimit",
+        "headphoneGain",
+        "headsetMicType",
+        "micHeadroom",
+        "micContourFilterEnabled"
+      ],
+      "properties": {
+        "displayBrightness": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "keyBrightness": {
+          "type": "string",
+          "enum": [
+            "highLow",
+            "highOff",
+            "lowOff",
+            "offOff"
+          ]
+        },
+        "screensaverMode": {
+          "type": "string",
+          "enum": [
+            "disabled",
+            "blank",
+            "connectionName",
+            "roleName",
+            "hostName"
+          ]
+        },
+        "menuAccessEnabled": {
+          "type": "boolean"
+        },
+        "rotateDisplayEnabled": {
+          "type": "boolean"
+        },
+        "vibrateOnCallEnabled": {
+          "type": "boolean"
+        },
+        "keysets": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "keysetIndex",
+              "stackedKeyEnabled",
+              "stackedKeyLabel",
+              "connections",
+              "talkBtnMode",
+              "usbFlasherMode"
+            ],
+            "properties": {
+              "keysetIndex": {
+                "type": "integer"
+              },
+              "stackedKeyEnabled": {
+                "type": "boolean"
+              },
+              "stackedKeyLabel": {
+                "type": "string"
+              },
+              "connections": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "res"
+                  ],
+                  "properties": {
+                    "res": {
+                      "type": "string",
+                      "pattern": "^/api/1/connections/[0-9]+$"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "talkBtnMode": {
+                "type": "string",
+                "enum": [
+                  "latching",
+                  "non-latching",
+                  "disabled"
+                ]
+              },
+              "usbFlasherMode": {
+                "type": "string",
+                "enum": [
+                  "disabled",
+                  "blinking",
+                  "solid"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "sidetoneGain": {
+          "type": "integer",
+          "minimum": -18,
+          "maximum": 0,
+          "multipleOf": 6
+        },
+        "sidetoneControl": {
+          "type": "string",
+          "enum": [
+            "tracking",
+            "non-tracking",
+            "disabled"
+          ]
+        },
+        "headphoneLimit": {
+          "type": "string",
+          "enum": [
+            "off",
+            "6",
+            "0",
+            "-6"
+          ]
+        },
+        "headphoneGain": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 12,
+          "multipleOf": 3
+        },
+        "headsetMicType": {
+          "type": "string",
+          "enum": [
+            "electret",
+            "dynamic_0",
+            "dynamic_10"
+          ]
+        },
+        "micHeadroom": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "high"
+          ]
+        },
+        "micContourFilterEnabled": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "FSIIBPSettings": {
+      "type": "object",
+      "required": [
+        "keysets",
+        "groups",
+        "headphoneLimit",
+        "sidetoneGain",
+        "sidetoneControl",
+         "masterVolume",
+        "lineInVolume",
+        "portInputGain",
+        "portOutputGain",
+        "micEchoCancellation",
+        "masterVolumeOperation",
+        "batteryAlarmMode",
+        "lowBatteryThreshold",
+        "callAlertMode",
+        "outOfRangeAlarm",
+        "displayBrightness",
+        "displayDimTimeout",
+        "displayOffTimeout",
+        "listenAgainAutoDelete",
+        "listenAgainRecordTime",
+        "replyTalkAutoClear",
+        "menuLevel",
+        "latchingTalkKeys",
+        "dimmedTallies",
+        "partyLineDisplayMode",
+        "menuKeyMode",
+        "eavesdropping",
+        "headphoneLowLevelLimit",
+        "micType",
+        "useLocalSettings"
+      ],
+      "properties": {
+        "keysets": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "required": [
+              "keysetIndex",
+              "connections",
+              "activationState",
+              "isCallKey",
+              "isReplyKey",
+              "talkBtnMode"
+            ],
+            "properties": {
+              "keysetIndex": {
+                "type": "integer"
+              },
+              "connections": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "res"
+                  ],
+                  "properties": {
+                    "res": {
+                      "type": "string",
+                      "pattern": "^/api/1/(connections/[0-9]+|roles/[0-9]+|devices/[0-9]+/interfaces/[0-9]+/ports/[0-9]+|special/(.*?))$"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "activationState": {
+                "type": "string",
+                "enum": [
+                  "talk",
+                  "listen",
+                  "talklisten",
+                  "dualtalklisten",
+                  "forcelisten",
+                  "talkforcelisten",
+                  "forcetalkforcelisten"
+                ]
+              },
+              "isCallKey": {
+                "type": "boolean"
+              },
+              "isReplyKey": {
+                "type": "boolean"
+              },
+              "talkBtnMode": {
+                "type": "string",
+                "enum": [
+                  "latching",
+                  "non-latching",
+                  "disabled"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "res"
+            ],
+            "properties": {
+              "res": {
+                "type": "string",
+                "pattern": "^/api/1/connections/[0-9]+$"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "headphoneLimit": {
+          "type": "integer",
+          "minimum": -12,
+          "maximum": 8
+        },
+        "sidetoneGain": {
+          "type": "number",
+          "enum": [
+            0.0,
+            -0.4,
+            -0.7,
+            -1.4,
+            -1.8,
+            -2.5,
+            -3.6,
+            -4.3,
+            -5.3,
+            -6.0,
+            -7.1,
+            -8.5,
+            -9.6,
+            -11.0,
+            -12.4,
+            -14.2,
+            -16.7,
+            -20.6,
+            -24.9,
+            -29.8,
+            -36.6,
+            -45.1,
+            -54.0,
+            -69.9
+          ]
+        },
+        "sidetoneControl": {
+          "type": "string",
+          "enum": [
+            "tracking",
+            "non-tracking",
+            "disabled"
+          ]
+        },
+        "masterVolume": {
+          "type": "number",
+          "enum": [
+            0.0,
+            -0.4,
+            -0.7,
+            -1.4,
+            -1.8,
+            -2.5,
+            -3.6,
+            -4.3,
+            -5.3,
+            -6.0,
+            -7.1,
+            -8.5,
+            -9.6,
+            -11.0,
+            -12.4,
+            -14.2,
+            -16.7,
+            -20.6,
+            -24.9,
+            -29.8,
+            -36.6,
+            -45.1,
+            -54.0,
+            -69.9
+          ]
+        },
+        "lineInVolume": {
+          "type": "integer",
+          "minimum": -15,
+          "maximum": 6
+        },
+        "portInputGain": {
+          "type": "integer",
+          "minimum": -70,
+          "maximum": 15
+        },
+        "portOutputGain": {
+          "type": "integer",
+          "minimum": -70,
+          "maximum": 15
+        },
+        "micEchoCancellation": {
+          "type": "boolean"
+        },
+        "masterVolumeOperation": {
+          "type": "boolean"
+        },
+        "batteryAlarmMode": {
+          "type": "string",
+          "enum": [
+            "vibrate+audio",
+            "vibrate",
+            "audio",
+            "off"
+          ]
+        },
+        "lowBatteryThreshold": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "multipleOf": 5
+        },
+        "callAlertMode": {
+          "type": "string",
+          "enum": [
+            "vibrate+audio",
+            "vibrate",
+            "audio",
+            "off"
+          ]
+        },
+        "outOfRangeAlarm": {
+          "type": "string",
+          "enum": [
+            "audio",
+            "off"
+          ]
+        },
+        "displayBrightness": {
+          "type": "string",
+          "enum": [
+            "verylow",
+            "low",
+            "medium",
+            "high",
+            "veryhigh"
+          ]
+        },
+        "displayDimTimeout": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 120,
+          "multipleOf": 5
+        },
+        "displayOffTimeout": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 120,
+          "multipleOf": 5
+        },
+        "listenAgainAutoDelete": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 240,
+          "multipleOf": 30
+        },
+        "listenAgainRecordTime": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 15,
+          "multipleOf": 1
+        },
+        "replyTalkAutoClear": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 60
+        },
+        "menuLevel": {
+          "type": "string",
+          "enum": [
+            "advanced",
+            "normal",
+            "basic",
+            "none"
+          ]
+        },
+        "latchingTalkKeys": {
+          "type": "boolean"
+        },
+        "dimmedTallies": {
+          "type": "boolean"
+        },
+        "partyLineDisplayMode": {
+          "type": "boolean"
+        },
+        "menuKeyMode": {
+          "type": "string",
+          "enum": [
+            "listenagain",
+            "switchvolctrl"
+          ]
+        },
+        "eavesdropping": {
+          "type": "boolean"
+        },
+        "headphoneLowLevelLimit": {
+          "type": "integer",
+          "enum": [
+            -6,
+            -12,
+            -21,
+            -70
+          ]
+        },
+        "micType": {
+          "type": "string",
+          "enum": [
+            "dynamic",
+            "electrect",
+            "automatic"
+          ]
+        },
+        "useLocalSettings": {
+          "type": "boolean"
+        }
+      }
+    },
+    "LQAICSettings": {
+      "type": "object",
+      "required": [
+        "keysets"
+      ],
+      "properties": {
+        "keysets": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 24,
+          "items": {
+            "type": "object",
+            "required": [
+              "keysetIndex",
+              "keys",
+              "connections",
+              "isAutoListen",
+              "maxVolume",
+              "minVolume"
+            ],
+            "properties": {
+              "keysetIndex": {
+                "type": "integer"
+              },
+              "keys": {
+                "type": "array",
+                "minItems": 4,
+                "maxItems": 4,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "keyIndex",
+                    "type",
+                    "isLatchable"
+                  ],
+                  "properties": {
+                    "keyIndex": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "Talk",
+                        "Listen",
+                        "Call",
+                        "Event1",
+                        "Event2",
+                        "RMK",
+                        "None"
+                      ]
+                    },
+                    "isLatchable": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "connections": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "res"
+                  ],
+                  "properties": {
+                    "res": {
+                      "type": "string",
+                      "pattern": "^/api/1/connections/[0-9]+$"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "isAutoListen": {
+                "type": "boolean"
+              },
+              "maxVolume": {
+                "type": "integer"
+              },
+              "minVolume": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "HMS4XRole": {
+      "type": "object",
+      "required": [
+        "type",
+        "settings"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "HMS-4X"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "isDefault": {
+          "enum": [
+            false
+          ]
+        },
+        "settings": {
+          "$ref": "#/definitions/HMS4XSettings"
+        }
+      },
+      "additionalProperties": false
+    },
+    "HRM4XRole": {
+      "type": "object",
+      "required": [
+        "type",
+        "settings"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "HRM-4X"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "isDefault": {
+          "enum": [
+            false
+          ]
+        },
+        "settings": {
+          "$ref": "#/definitions/HRM4XSettings"
+        }
+      },
+      "additionalProperties": false
+    },
+    "HKB2XRole": {
+      "type": "object",
+      "required": [
+        "type",
+        "settings"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "HKB-2X"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "isDefault": {
+          "enum": [
+            false
+          ]
+        },
+        "settings": {
+          "$ref": "#/definitions/HKB2XSettings"
+        }
+      },
+      "additionalProperties": false
+    },
+    "HBP2XRole": {
+      "type": "object",
+      "required": [
+        "type",
+        "settings"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "HBP-2X"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "isDefault": {
+          "enum": [
+            false
+          ]
+        },
+        "settings": {
+          "$ref": "#/definitions/HBP2XSettings"
+        }
+      },
+      "additionalProperties": false
+    },
+    "FSIIBPRole": {
+      "type": "object",
+      "required": [
+        "type",
+        "settings"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "FSII-BP"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "isDefault": {
+          "enum": [
+            false
+          ]
+        },
+        "settings": {
+          "$ref": "#/definitions/FSIIBPSettings"
+        }
+      },
+      "additionalProperties": false
+    },
+    "LQAICRole": {
+      "type": "object",
+      "required": [
+        "type",
+        "settings"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "LQ-AIC"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "isDefault": {
+          "enum": [
+            false
+          ]
+        },
+        "settings": {
+          "$ref": "#/definitions/LQAICSettings"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/definitions/HMS4XRole"
+    },
+    {
+      "$ref": "#/definitions/HRM4XRole"
+    },
+    {
+      "$ref": "#/definitions/HKB2XRole"
+    },
+    {
+      "$ref": "#/definitions/HBP2XRole"
+    },
+    {
+      "$ref": "#/definitions/FSIIBPRole"
+    },
+    {
+      "$ref": "#/definitions/LQAICRole"
+    }
+  ]
+}
+

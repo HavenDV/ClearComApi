@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Add",
+  "definitions": {
+    "IVCDevice": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [ "IVC" ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Label for display purpose."
+        },
+        "settings": {
+          "type": "object",
+          "required": [
+            "ip",
+            "port"
+          ],
+          "properties": {
+            "ip": {
+              "type": "string",
+              "format": "hostname",
+              "description": "Hostname or IPv4 address of the target external device."
+            },
+            "port": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535,
+              "description": "TCP/UDP port number to use to reach the target external device."
+            }
+          }
+        }
+      }
+    },
+    "SIPServer": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [ "SIP" ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Label for display purpose."
+        },
+        "settings": {
+          "type": "object",
+          "required": [
+            "ip",
+            "port"
+          ],
+          "properties": {
+            "ip": {
+              "type": "string",
+              "format": "hostname",
+              "description": "Hostname or IP address of the target SIP registrar."
+            },
+            "port": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535,
+              "description": "TCP/UDP port number to use to reach the SIP registrar."
+            },
+            "domain": {
+              "type": "string",
+              "description": "Default domain to be used for SIP users."
+            },
+            "protocol": {
+              "type": "string",
+              "enum": [
+                "udp",
+                "tcp",
+                "tls"
+              ],
+              "description": "Communication protocol to be used with the registrar."
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "anyOf": [
+    { "$ref": "#/definitions/IVCDevice" },
+    { "$ref": "#/definitions/SIPServer" }
+  ]
+}

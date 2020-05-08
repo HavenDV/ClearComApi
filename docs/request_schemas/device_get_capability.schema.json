@@ -1,0 +1,262 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Device Capabilities",
+  "type": "object",
+  "required": [
+    "type",
+    "psuMonitoring",
+    "webSocket",
+    "labelLength",
+    "endpoints",
+    "saveRestore",
+    "upgrade",
+    "network",
+    "icon",
+    "licensing"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "HMS-4X",
+        "HBP-2X",
+        "HRM-4X",
+        "HKB-2X",
+
+        "FSII",
+
+        "LQ-4W2",
+        "LQ-2W2",
+        "LQ-4WG2",
+        "LQ-R4W8",
+        "LQ-R4W4",
+        "LQ-R4FWG",
+        "LQ-R4WG8",
+        "LQ-R2W2-4WG2",
+        "LQ-R2W4-4WG4",
+        "LQ-R2W4-4W4"
+      ],
+       "description": "Currently supported devices enumeration."
+    },
+    "stackable": {
+      "type": "boolean",
+      "description": "Can the device be used in a stack (either base or expansion)."
+    },
+    "psuMonitoring": {
+      "type": "boolean",
+      "description": "Does the device support psu monitoring."
+    },
+    "webSocket": {
+      "type": "boolean",
+      "description": "Does the device handle webSocket connections."
+    },
+    "labelLength": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Maximum name length allowed when naming the Device."
+    },
+    "roles": {
+      "type": "object",
+      "required": [
+        "isDynamic",
+        "device",
+        "endpoint"
+      ],
+      "properties": {
+        "isDynamic": {
+          "type": "boolean",
+          "description": "Does the device have dynamic roles. (Review this)"
+        },
+        "device": {
+          "type": "boolean",
+          "description": "Does the device support role assignment."
+        },
+        "endpoint": {
+          "type": "boolean",
+          "description": "Does the device support assigning roles to it's endpoints."
+        },
+        "maxRoles": {
+          "type": "integer",
+          "description": "Does the device enforce a maximum number of roles."
+        }
+      },
+      "description": "Device's level of Role support.",
+      "additionalProperties": false
+    },
+    "endpoints": {
+      "type": "boolean",
+      "description": "Does the device support endpoints."
+    },
+    "saveRestore": {
+      "type": "boolean",
+      "description": "Does the device support save and restore."
+    },
+    "upgrade": {
+      "type": "object",
+      "required": [
+        "minSize",
+        "maxSize",
+        "extensions"
+      ],
+      "properties": {
+        "minSize": {
+          "type": "integer",
+          "description": "Minimum firmware size accepted by the device."
+        },
+        "maxSize": {
+          "type": "integer",
+          "description": "Maximum firmware size accepted by the device."
+        },
+        "extensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Firmware file extension(s) accepted by the device."
+        }
+      },
+      "description": "Firmware properties supported by the device.",
+      "additionalProperties": false
+    },
+    "network": {
+      "type": "object",
+      "required": [
+        "dns"
+      ],
+      "properties": {
+        "dns": {
+          "type": "boolean",
+          "description": "Does the device support dns."
+        }
+      },
+      "description": "Network properties supported by the device.",
+      "additionalProperties": false
+    },
+    "icon": {
+      "type": "object",
+      "required": [
+        "interfaces"
+      ],
+      "properties": {
+        "interfaces": {
+          "type": "object",
+          "required": [
+            "max",
+            "displayMode"
+          ],
+          "properties": {
+            "max": {
+              "type": "integer"
+            },
+            "displayMode": {
+              "type": "string",
+              "enum": [ "bySlot", "supportedList" ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "connections": {
+      "type": "object",
+      "required": [
+        "view"
+      ],
+      "properties": {
+        "view": {
+          "type": "string",
+          "enum": [ "connections" ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "licensing": {
+      "type": "boolean"
+    },
+    "linking": {
+      "type": "object",
+      "required": [
+        "supportedDevices",
+        "maxDevices",
+        "options"
+      ],
+      "properties": {
+        "supportedDevices": {
+          "type": "integer"
+        },
+        "maxDevices": {
+          "type": "integer"
+        },
+        "nameResolution": {
+          "type": "boolean",
+          "description": "true if the device supports resolving hostnames for linking."
+        },
+        "options": {
+          "type" : "array",
+          "items": {
+             "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "default": {
+                  "type": "boolean"
+                }
+              }
+            }
+         }
+      },
+      "additionalProperties": false
+    },
+    "events": {
+      "type" : "array",
+        "items": {
+           "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [ "connection" ]
+              },
+              "value": {
+                "type": "string",
+                "enum": [ "talk", "call", "control" ]
+              }
+            }
+          }
+      },
+    "externalDevices": {
+      "type" : "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "IVC",
+              "SIP"
+            ]
+          }
+        }
+      }
+    },
+    "users": {
+      "type": "array",
+      "description": "The types of IVP users supported in the link group",
+      "items": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "LQ-AIC"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

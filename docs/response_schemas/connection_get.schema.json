@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Connection",
+  "type": "object",
+  "required": [
+    "id",
+    "type"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Unique connection id within the link group."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "partyline",
+        "group",
+        "direct"
+      ],
+      "description": "Currently supported connections enumeration."
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description":  "UI name for connection identification."
+    },
+    "res": {
+      "type": "string",
+      "description": "Uri that can be used to address the connection using REST."
+    }
+  },
+  "additionalProperties": false
+}

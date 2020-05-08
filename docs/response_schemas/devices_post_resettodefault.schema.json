@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Reset to default",
+  "type": "object",
+  "properties": {
+    "system": {
+      "type":"boolean",
+      "description": "HelixNet only. If set to true, will reset Roles and Connections to their default values."
+    },
+    "local": {
+      "type":"boolean",
+      "description": "HelixNet only. If set to true, will reset the HMS-4X internal configuration (including network settings)."
+    },
+    "endpoints": {
+      "type":"boolean",
+      "description": "HelixNet only. If set to true, will reset all currently paired endpoints."
+    }
+  },
+  "additionalProperties": false
+}

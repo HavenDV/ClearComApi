@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Update",
+  "type": "object",
+  "properties": {
+    "power": {
+      "type": "boolean",
+      "description": "Enable or disable power output on the 2W interface."
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "ClearCom",
+        "RTS"
+      ],
+      "description": "Set the 2W mode."
+    }
+  },
+  "additionalProperties": false
+}

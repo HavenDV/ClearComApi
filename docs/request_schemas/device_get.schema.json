@@ -1,0 +1,250 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Get device",
+  "type": "object",
+  "required": [
+    "device_id",
+    "device_label",
+    "deviceType_name",
+    "device_netMode"
+  ],
+  "properties": {
+    "device_id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The device id in the link group. This is the slot position selected during linking."
+    },
+    "device_label": {
+      "type": "string",
+      "minLength": 0,
+      "description": "The device identification label"
+    },
+    "device_ipAddress": {
+      "type": "string",
+      "format": "ipv4",
+      "description": "The device's current IP address."
+    },
+    "isHost": {
+      "type": "boolean",
+      "description": "true if this is device where the request was sent."
+    },
+    "deviceType_name": {
+      "type": "string",
+      "description": "The device type code name."
+    },
+    "device_uuid": {
+      "type": "string",
+      "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+      "description": "Device Universally Unique Identifier. It will not change even if device_id changes."
+    },
+    "device_settings": {
+      "type": "object",
+      "properties": {
+        "displayBrightness": {
+            "type": "integer",
+            "enum": [ 20, 85, 170, 255 ]
+        },
+        "network": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [ "dhcp", "static" ]
+            },
+            "staticIP": {
+              "type": "string",
+              "format": "ipv4"
+            },
+            "netmask": {
+              "type": "string",
+              "format": "ipv4"
+            },
+            "gateway": {
+              "type": "string",
+              "format": "ipv4"
+            },
+            "dns1": {
+              "type": "string",
+              "format": "ipv4"
+            },
+            "dns2": {
+              "type": "string",
+              "format": "ipv4"
+            },
+            "extip": {
+              "type": "string",
+              "format": "ipv4"
+            },
+            "extport": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "mgmtPort": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "tunnelPort": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "mac": {
+              "type": "string",
+              "description": "The device's network interface MAC address."
+            }
+          }
+        },
+
+        "otaPin": {
+          "type": "integer",
+          "description": "Specific to FSII."
+        },
+        "wirelessId": {
+          "type": "string",
+          "description": "Specific to FSII."
+        },
+        "adminPin": {
+          "type": "integer",
+          "description": "Specific to FSII."
+        },
+        "aaBatteryType": {
+          "type": "string",
+          "enum": [ "Alkaline" ],
+          "description": "Specific to FSII."
+        },
+        "roleSorting": {
+          "type": "string",
+          "enum": [
+            "Alphabetical",
+            "RoleNumber"
+          ],
+          "description": "Specific to FSII."
+        },
+        "OTAState": {
+          "type": "integer",
+          "description": "Specific to FSII."
+        },
+        "asref": {
+          "type": "integer",
+          "description": "Specific to FSII."
+        }
+      },
+      "required": [
+        "network",
+        "device_id",
+        "device_uuid",
+        "deviceType_name"
+      ]
+    },
+    "device_isMaster": {
+      "type": "boolean"
+    },
+    "device_linking": {
+     "type": "string",
+     "enum": [ "linkMaster" ]
+    },
+    "device_masterId": {
+      "type": "integer"
+    },
+    "device_masterStatus": {
+      "type": "string"
+    },
+    "device_masterAddress": {
+      "type": "string",
+      "format": "ipv4"
+    },
+    "device_masterPort": {
+      "type": "string"
+    },
+    "device_netMode": {
+      "type": "string",
+      "enum": [ "LAN", "WAN" ]
+    },
+    "device_usage": {
+      "type": "integer"
+    },
+    "device_isReachable": {
+      "type": "boolean"
+    },
+    "device_versionSW": {
+      "type": "string"
+    },
+    "versionSW": {
+      "type": "string"
+    },
+    "versionHW": {
+      "type": "string"
+    },
+    "linkingVersion": {
+      "type": "integer"
+    },
+    "device_dver": {
+      "type": "integer"
+    },
+    "res": {
+      "type": "string"
+    },
+    "hxIIBPversionSW": {
+      "type": "string"
+    },
+    "role": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        },
+        "isDefault": {
+          "type": "boolean"
+        },
+        "res": {
+          "type": "string"
+        }
+      }
+    },
+    "device_liveStatus": {
+      "type": "object",
+      "properties": {
+        "power": {
+          "type": "integer"
+        }
+      },
+      "description": "Specific to FSII."
+    },
+    "systemId": {
+      "type": "string",
+      "pattern": "[0-9A-F]{6}",
+      "description": "The system ID as a numeric string for licensing purpose."
+    },
+    "licensePasscode": {
+      "type": "string",
+      "pattern": "[0-9A-F]{16}",
+      "description": "The current license passcode provided by Clear-Com for the systemId."
+    },
+    "licenseSerialNo": {
+      "type": "string",
+      "description": "A serial number which uniquely identifies the device for license purpose."
+    },
+    "licensedFeatures": {
+      "type": "array",
+      "description": "The feature list enabled by the current license passcode (HelixNet and FS-II) or license activations (LQ).",
+      "items": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": [ "24Channels", "25Beltpacks", "SIP8-LQ", "AGENT-IC-LQ", "AGENT-IC8-LQ", "SIP8-LQ-DEMO", "AGENT-IC-LQ-DEMO", "AGENT-IC8-LQ-DEMO" ],
+            "description": "Enabled feature name."
+          },
+          "qty": {
+            "type": "number",
+            "description": "The number of activated items of this type. Defaults to 1 if qty is absent."
+          }
+        }
+      }
+    }
+  }
+}

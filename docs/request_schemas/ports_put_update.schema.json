@@ -1,0 +1,313 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Put",
+  "type": "object",
+  "properties": {
+    "res": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^/api/1/devices/[0-9]+/interfaces/[0-9]+/ports/[0-9]+$"
+          }
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "termination": {
+      "type": "boolean"
+    },
+    "inputGain": {
+      "type": "integer",
+      "minimum": -12,
+      "maximum": 12
+    },
+    "outputGain": {
+      "type": "integer",
+      "minimum": -12,
+      "maximum": 12
+    },
+    "multiChannel": {
+      "type": "boolean"
+    },
+
+    "vox": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "disabled",
+            "fixed",
+            "adaptive"
+          ]
+        },
+        "threshold": {
+          "type": "integer",
+          "minimum": -60,
+          "maximum": -18,
+          "multipleOf": 2
+        },
+        "delay": {
+          "type": "integer"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "value"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [ "connection" ]
+              },
+              "value": {
+                "type": "string",
+                "enum": [ "control", "talk", "call" ]
+              },
+              "connections": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+
+    "networkQuality": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer"
+        },
+        "bitrate": {
+          "type": "integer"
+        },
+        "packetSize": {
+          "type": "integer"
+        },
+        "jitter": {
+          "type": "string"
+        }
+      }
+    },
+    "externalNetworkQuality": {
+      "type": "string",
+      "enum": [
+        "default",
+        "wan",
+        "lan",
+        "internet"
+      ]
+    },
+    "externalSilenceSuppression": {
+      "type": "boolean"
+    },
+    "silenceSupp": {
+      "type": "boolean"
+    },
+    "pinout": {
+      "type": "string",
+      "enum": [
+        "panel",
+        "matrix"
+      ]
+    },
+    "serial": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "enabled",
+            "disabled"
+          ]
+        },
+        "baudRate": {
+          "type": "integer",
+          "enum": [
+            300,
+            600,
+            1200,
+            2400,
+            4800,
+            9600,
+            19200,
+            38400,
+            57600,
+            115200
+          ]
+        },
+        "data": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 8
+        },
+        "parity": {
+          "type": "string",
+          "enum": [
+            "none",
+            "odd",
+            "even",
+            0
+          ],
+          "description": "set to 0 for FSII, use string for HN"
+        },
+        "stop": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        "flowControl": {
+          "type": "string",
+          "enum": [
+            "none",
+            "RTS/CTS",
+            "Xon/Xoff"
+          ]
+        },
+        "framingType": {
+          "type": "string",
+          "enum": [
+            "Eclipse/4000",
+            "Matrix Plus",
+            "none"
+          ]
+        }
+      }
+    },
+    "micLevel": {
+      "type": "boolean"
+    },
+
+    "gpis": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "events"
+        ],
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "value"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [ "connection" ]
+                },
+                "value": {
+                  "type": "string",
+                  "enum": [ "control", "talk", "call" ]
+                },
+                "connections": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "gpos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "events"
+        ],
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "value"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [ "connection" ]
+                },
+                "value": {
+                  "type": "string",
+                  "enum": [ "control", "talk", "call" ]
+                },
+                "connections": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+
+    "callSignal": {
+      "type": "boolean"
+    },
+    "headphoneLimit": {
+      "type": "integer"
+    },
+    "headsetMicType": {
+      "type": "string",
+      "enum": [
+        "automatic",
+        "electret",
+        "dynamic_0",
+        "dynamic_10"
+      ]
+    },
+    "sidetoneGain": {
+      "type": "integer"
+    },
+    "sidetoneControl": {
+      "type": "string",
+      "enum": [
+        "tracking",
+        "non-tracking",
+        "disabled"
+      ]
+    },
+    "pgmOutputEnabled": {
+      "type": "boolean"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "clearcom",
+        "rtsPin2",
+        "rtsPin3"
+      ]
+    },
+    "gpoTriggerEnabled": {
+      "type": "boolean"
+    },
+    "rmkInputEnabled": {
+      "type": "boolean"
+    },
+    "rmkOutputEnabled": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Snasphot progress",
+  "type": "object",
+  "properties": {
+    "percentComplete": {
+      "description": "Snapshot generation progress in percentage.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "url": {
+      "description": "URL to use to download the schema when percentComplete is 100.",
+      "type": "string",
+      "format": "uri"
+    }
+  },
+  "required": [ "percentComplete" ]
+}

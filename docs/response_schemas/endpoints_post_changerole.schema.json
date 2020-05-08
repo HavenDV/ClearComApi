@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Change role",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "The role id to use for the endpoint"
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "additionalProperties": false
+}
