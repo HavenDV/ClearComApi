@@ -6,7 +6,7 @@ namespace ClearComApi
 {
     public partial class ApiClient : IDisposable
     {
-        public HttpClient HttpClient { get; set; }
+        public HttpClient? HttpClient { get; set; }
 
         public static ApiClient New(string baseUrl, string username, string password)
         {
@@ -23,7 +23,7 @@ namespace ClearComApi
 
         public void Dispose()
         {
-            HttpClient.Dispose();
+            HttpClient?.Dispose();
         }
     }
 }
