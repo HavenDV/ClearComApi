@@ -16578,6 +16578,9 @@ namespace ClearComApi
         [System.Runtime.Serialization.EnumMember(Value = @"LQ-R2W4-4W4")]
         LQR2W44W4 = 14,
 
+        [System.Runtime.Serialization.EnumMember(Value = @"LQ-R2W4")]
+        LQR2W4 = 15,
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.1.11.0 (Newtonsoft.Json v12.0.0.0)")]
