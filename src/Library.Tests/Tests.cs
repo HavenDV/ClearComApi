@@ -13,7 +13,7 @@ namespace ClearComApi.Tests
         {
             using var source = new CancellationTokenSource(TimeSpan.FromMinutes(1));
 
-            using var client = ApiClient.New("http://clearcomtest.net/", "admin", "4Mercury@62");
+            using var client = ApiClient.New("http://clearcomtest.net/api/", "admin", "4Mercury@62");
 
             var capabilities = await client.GetDevicesCapabilitiesAsync(source.Token);
 

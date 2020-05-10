@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace ClearComApi
@@ -11,13 +12,14 @@ namespace ClearComApi
         public static ApiClient New(string baseUrl, string username, string password)
         {
             var client = new HttpClient();
-            client.DefaultRequestHeaders.Add(
-                "Authorization", 
-                $"Basic {Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"))}");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Basic", 
+                Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{username}:{password}")));
 
             return new ApiClient(baseUrl, client)
             {
-                HttpClient = client
+                HttpClient = client,
+                //ReadResponseAsString = true,
             };
         }
 
